@@ -1,29 +1,36 @@
 import React, { Component } from 'react'
 import { Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap'
+import { Link } from "react-router-dom";
 
 
-class TopNav extends Component{
-  
-  render(){
-    return(<Navbar inverse collapseOnSelect fluid staticTop>
+class TopNav extends Component {
+
+  render() {
+    return (<Navbar inverse collapseOnSelect fluid staticTop>
       <Navbar.Header>
         <Navbar.Brand>
-          <a href="#brand">TLI</a>
+          <a href="/dashboard">TLI</a>
         </Navbar.Brand>
         <Navbar.Toggle />
       </Navbar.Header>
       <Navbar.Collapse>
         <Nav>
-          <NavItem eventKey={1} href="#">
-            Teachers
+        <NavItem eventKey={2} href="#">
+          <Link to="/dashboard">Dashboard</Link>
+          </NavItem>
+          <NavItem
+            eventKey={1}
+            href="#"
+          >
+            <Link to="/teachers">Teachers</Link>
           </NavItem>
           <NavItem eventKey={2} href="#">
-            Students
+          <Link to="/students">Students</Link>
           </NavItem>
         </Nav>
         <Nav pullRight>
           <NavItem eventKey={1} href="#">
-            Login
+          <Link to="/login">Login</Link>
           </NavItem>
           <NavDropdown eventKey={2} title="Student" id="admin-nav-dropdown">
             <MenuItem eventKey={2.1}>My teachers</MenuItem>
