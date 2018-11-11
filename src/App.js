@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import { Switch, Route } from "react-router-dom";
 
 import './css/app.scss';
-import TopNav from './app/main/topnav'
-import Login from './app/pages/login'
-import Dashboard from './app/pages/dashboard'
-import Teachers from './app/pages/teachers'
-import Students from './app/pages/students'
+import TopNav from './app/components/topnav'
+import Login from './app/routes/login'
+import Dashboard from './app/routes/dashboard'
+import Teachers from './app/routes/teachers'
+import Students from './app/routes/students'
 
 
 class App extends Component {
