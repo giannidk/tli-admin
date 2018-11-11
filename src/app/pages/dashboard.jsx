@@ -5,6 +5,7 @@ import logo from '../../logo.svg';
 
 class Dashboard extends Component{
 	render(){
+    console.log(this.props)
 		return(
       <header className="App-header">
       <img src={logo} className="App-logo" alt="logo" />
