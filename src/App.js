@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import { Switch, Route } from "react-router-dom";
 
-import './css/app.scss';
-import TopNav from './app/components/topnav'
+import './scss/app.scss';
+import { TopNav } from './app/components/main'
 import Login from './app/routes/login'
+import Home from './app/routes/home'
 import Dashboard from './app/routes/dashboard'
 import Teachers from './app/routes/teachers'
 import Students from './app/routes/students'
-
+import { Grid } from 'react-bootstrap'
 
 class App extends Component {
   state = {
@@ -21,13 +22,15 @@ class App extends Component {
     return (
       <div className="App">
         <TopNav />
+          <Grid fluid={true}>
         <Switch>
-          <Route path="/login" component={Login} />
-          <Route path="/dashboard" component={Dashboard} />
-          <Route path="/teachers" component={Teachers} />
-          <Route path="/students" component={Students} />
-          <Route path="/" component={Login} />
+            <Route path="/login" component={Login} />
+            <Route path="/dashboard" component={Dashboard} />
+            <Route path="/teachers" component={Teachers} />
+            <Route path="/students" component={Students} />
+            <Route path="/" component={Home} />
         </Switch>
+          </Grid>
       </div>
     );
   }
