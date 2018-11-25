@@ -1,28 +1,42 @@
 import React, { Component } from 'react'
-import logo from '../../logo.svg';
+import {
+  Row,
+  Col,
+  ListGroup,
+  ListGroupItem,
+  Panel,
+} from 'react-bootstrap'
+import {
+  UpcomingClasses,
+  Teachers,
+} from '../components/widgets'
+import {
+  teachers,
+  upcomingDates,
+} from '../constants'
 
 
 
-class Dashboard extends Component{
-	render(){
+class Dashboard extends Component {
+  render() {
     console.log(this.props)
-		return(
-      <header className="App-header">
-      <img src={logo} className="App-logo" alt="logo" />
-      <p>
-        Edit <code>src/App.js</code> and save to reload.
-      </p>
-      <a
-        className="App-link"
-        href="https://reactjs.org"
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        Learn React
-      </a>
-    </header>
-		)
-	}
+    return (
+      <Row>
+        <Col xs={12} sm={6}>
+          <UpcomingClasses data={upcomingDates} />
+        </Col>
+
+        <Col xs={12} sm={3}>
+        <UpcomingClasses data={upcomingDates} />
+        </Col>
+        
+        <Col xs={12} sm={3}>
+          <Teachers data={teachers} />
+        </Col>
+
+      </Row>
+    )
+  }
 }
 
 export default Dashboard
