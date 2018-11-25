@@ -1,29 +1,3 @@
-export const teachersNO = [
-	{
-		img: 'https://via.placeholder.com/480x400',
-		name: 'Jerry The Teach',
-		description: 'Integer ultricies sem ut ex sodales, ut tempus arcu sollicitudin',
-		email: 'jerry@mail.com',
-	},
-	{
-		img: 'https://via.placeholder.com/480x400',
-		name: 'Wang Yihsien',
-		description: 'Integer ultricies sem ut ex sodales, ut tempus arcu sollicitudin',
-	},
-	{
-		img: 'https://via.placeholder.com/480x400',
-		name: 'Wang Yihsien',
-		description: 'Integer ultricies sem ut ex sodales, ut tempus arcu sollicitudin',
-	},
-	{
-		img: 'https://via.placeholder.com/480x400',
-		name: 'Wang Yihsien',
-		description: 'Integer ultricies sem ut ex sodales, ut tempus arcu sollicitudin',
-	},
-]
-
-
-
 export const teachers = [{
 	"id": 1,
 	"first_name": "Gerry",
