@@ -3,7 +3,7 @@ import {
   projectsRoot,
   registrationsRoot as regsRoot,
   projectsRegistrationsRoot as projectsRegsRoot
-} from '../../firebase';
+} from '../firebase';
 import {
 	FETCH_PROJECTS,
 	FETCH_PROJECTS_SUCCESS,

@@ -1,10 +1,10 @@
-import { makeShortDate } from '../../app/helpers';
+import { makeShortDate } from '../helpers';
 import {
   database,
   projectsRoot,
   registrationsRoot as regsRoot,
   projectsRegistrationsRoot as projectsRegsRoot
-} from '../../firebase';
+} from '../firebase';
 
 import {
     FETCH_REGISTRATIONS,

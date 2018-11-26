@@ -3,7 +3,7 @@ import {
   registrationsRoot as regsRoot,
   invoicesRoot,
   projectsInvoicesRoot
-} from '../../firebase';
+} from '../firebase';
 import {
 	SAVE_INVOICE,
   FETCH_INVOICES,

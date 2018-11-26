@@ -6,31 +6,31 @@ import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import ReduxThunk from 'redux-thunk';
 
-import reducers from './app/reducers';
+import reducers from './reducers';
 
 import './scss/app.scss';
 import './scss/spinner.scss';
-import { TopNav } from './app/components/main'
-import Login from './app/routes/login'
-import Home from './app/routes/home'
-import Dashboard from './app/routes/dashboard'
-import Teachers from './app/routes/teachers'
-import TeacherDetails from './app/routes/teacher-details'
-import Students from './app/routes/students'
+import { TopNav } from './components/main'
+import Login from './routes/login'
+import Home from './routes/home'
+import Dashboard from './routes/dashboard'
+import Teachers from './routes/teachers'
+import TeacherDetails from './routes/teacher-details'
+import Students from './routes/students'
 
 
-import ClientsList from './app/routes/freelance/clients_list';
-import ClientsAdd from './app/routes/freelance/clients_add';
-import ProjectsList from './app/routes/freelance/projects_list';
-import RegistrationsList from './app/routes/freelance/registrations_list';
-import RegistrationsDetails from './app/routes/freelance/registrations_details';
-import RegistrationsAdd from './app/routes/freelance/registrations_add';
-import RegistrationsEdit from './app/routes/freelance/registrations_edit';
-import ClientsDetails from './app/routes/freelance/clients_details';
-import ProjectsDetails from './app/routes/freelance/projects_details';
-import ProjectsInvoice from './app/routes/freelance/projects_invoice';
-import InvoicesList from './app/routes/freelance/invoices_list';
-import InvoiceDetails from './app/routes/freelance/invoices_details';
+import ClientsList from './routes/freelance/clients_list';
+import ClientsAdd from './routes/freelance/clients_add';
+import ProjectsList from './routes/freelance/projects_list';
+import RegistrationsList from './routes/freelance/registrations_list';
+import RegistrationsDetails from './routes/freelance/registrations_details';
+import RegistrationsAdd from './routes/freelance/registrations_add';
+import RegistrationsEdit from './routes/freelance/registrations_edit';
+import ClientsDetails from './routes/freelance/clients_details';
+import ProjectsDetails from './routes/freelance/projects_details';
+import ProjectsInvoice from './routes/freelance/projects_invoice';
+import InvoicesList from './routes/freelance/invoices_list';
+import InvoiceDetails from './routes/freelance/invoices_details';
 
 class App extends Component {
   state = {

@@ -2,7 +2,7 @@ import {
 	database,
   clientsRoot,
   clientsProjectsRoot
-} from '../../firebase';
+} from '../firebase';
 import {
 	FETCH_CLIENTS,
 	FETCH_CLIENTS_SUCCESS,
