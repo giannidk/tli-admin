@@ -59,6 +59,24 @@ class TopNav extends Component {
             <MenuItem eventKey={3.3}>Settings</MenuItem>
             <MenuItem eventKey={3.4}>Logout</MenuItem>
           </NavDropdown>
+          
+          <NavDropdown eventKey={4} title="FREELANCE" id="admin-nav-dropdown">
+          <LinkContainer to="/clients">
+                    <MenuItem>Clients</MenuItem>
+                  </LinkContainer>
+                  
+                  <LinkContainer to="/projects">
+                    <MenuItem>Projects</MenuItem>
+                  </LinkContainer>
+                  
+                  <LinkContainer to="/registrations">
+                    <MenuItem>Registrations</MenuItem>
+                  </LinkContainer>
+                  
+                  <LinkContainer to="/invoices">
+                    <MenuItem>Invoices</MenuItem>
+                  </LinkContainer>       
+          </NavDropdown>
         </Nav>
       </Navbar.Collapse>
     </Navbar>)
