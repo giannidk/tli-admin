@@ -1,11 +1,10 @@
 import { combineReducers } from 'redux';
-/* 
 import { reducer as formReducer } from 'redux-form';
 import ClientsReducer from './reducer_clients';
 import ProjectsReducer from './reducer_projects';
 import InvoicesReducer from './reducer_invoices';
-*/
-import CalendarReducer from './reducer-calendar';
+import RegistrationsReducer from './reducer_registrations';
+
 const rootReducer = combineReducers({
     appData: () => {
       return {
@@ -17,12 +16,11 @@ const rootReducer = combineReducers({
         "dateFormat": "DD-MM-YYYY" 
       }
     },
-    calendar: CalendarReducer,
-   /*  
+    clients: ClientsReducer,
     projects: ProjectsReducer,
     registrations: RegistrationsReducer,
     invoices: InvoicesReducer,
-    form: formReducer */
+    form: formReducer
 })
 
 export default rootReducer;

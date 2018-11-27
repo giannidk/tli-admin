@@ -1,1 +1,0 @@
-export const FETCH_CALENDAR_EVENTS = 'fetch_calendar_events';
