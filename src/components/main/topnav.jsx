@@ -9,7 +9,7 @@ class TopNav extends Component {
       <Navbar.Header>
         <Navbar.Brand>
           <LinkContainer to="/">
-          <a>TLI</a>
+          <a href="/">TLI</a>
           </LinkContainer>
         </Navbar.Brand>
         <Navbar.Toggle />

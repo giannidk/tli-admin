@@ -3,10 +3,11 @@ import {
   Row,
   Col,
 } from 'react-bootstrap'
-import {
+import { 
   UpcomingClasses,
   Teachers,
 } from '../components/widgets'
+import QuickBook from '../components/widgets/quick-book'
 import {
   teachers,
   upcomingDates,
@@ -21,7 +22,7 @@ class Dashboard extends Component {
     return (
       <Row>
         <Col xs={12} sm={6}>
-          <UpcomingClasses data={upcomingDates} />
+          <QuickBook data={upcomingDates} />
         </Col>
 
         <Col xs={12} sm={3}>

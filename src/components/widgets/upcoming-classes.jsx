@@ -18,7 +18,6 @@ class UpcomingClasses extends Component {
 	}
 
   render() {
-    const { data } = this.props
     return (<Panel bsStyle="success">
       <Panel.Heading>
         <Panel.Title componentClass="h3">Your upcoming classes</Panel.Title>

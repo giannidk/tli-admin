@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Thumbnail, ButtonToolbar, Button } from 'react-bootstrap'
+import { Thumbnail, Button } from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap'
 
 class Card extends Component {
