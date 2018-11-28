@@ -8,6 +8,8 @@ import {
     REGISTRATIONS_ADD,
     REGISTRATION_DELETE,
     CALENDAR_ENTRY_ADD,
+    CALENDAR_ENTRY_ADD_SUCCESS,
+    CALENDAR_ENTRY_ADD_ERROR,
 } from '../actions/types';
 
 const INITIAL_STATE = {
@@ -32,8 +34,10 @@ export default function ( state = INITIAL_STATE, action) {
             return { ...state, error: action.error, loading: false }; 
             case REGISTRATIONS_ADD:
             return action.payload; */   
-            case CALENDAR_ENTRY_ADD:
+        case CALENDAR_ENTRY_ADD_SUCCESS:
             return { ...state, success: action.payload }; ;   
+        case CALENDAR_ENTRY_ADD_ERROR:
+            return { ...state, error: action.payload }; ;   
         /* case REGISTRATION_DELETE:
             return action.payload;  */
         default:

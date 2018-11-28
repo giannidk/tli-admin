@@ -13,6 +13,8 @@ firebase.initializeApp(config);
 
 const database = firebase.database();
 const baseRoot = '/users/3905';
+const TMP_USER = `3905`;
+const calendarRoot = `calendar`;
 const teachersRoot = `teachers`;
 const clientsRoot = `${baseRoot}/clients`;
 const projectsRoot = `${baseRoot}/projects`;
@@ -22,12 +24,13 @@ const projectsRegistrationsRoot = `${baseRoot}/projectsRegistrations`;
 const invoicesRoot = `${baseRoot}/invoices`;
 const projectsInvoicesRoot = `${baseRoot}/projectsInvoices`;
 
-const calendarRoot = `${baseRoot}/calendar`;
 
 export {
   database,
   baseRoot,
+  TMP_USER,
   teachersRoot,
+  calendarRoot,
   clientsRoot,
   projectsRoot,
   clientsProjectsRoot,
@@ -35,5 +38,4 @@ export {
   projectsRegistrationsRoot,
   invoicesRoot,
   projectsInvoicesRoot,
-  calendarRoot,
 };

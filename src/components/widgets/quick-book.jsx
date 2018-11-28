@@ -94,7 +94,7 @@ class QuickBook extends Component {
 
   render() {
     console.log('PPP', this.props)
-    const { handleSubmit, loading, error, teachers, calendarSuccess } = this.props;
+    const { handleSubmit, loading, error, teachers, calendarSuccess, calendarError } = this.props;
     if (loading || !teachers) {
       return <Spinner />;
     }
@@ -114,7 +114,10 @@ class QuickBook extends Component {
       </Panel.Heading>
       <Panel.Body>
         {calendarSuccess && <Alert bsStyle="success">
-          <p>Your lesson has been booked</p>
+          <p>{calendarSuccess}</p>
+        </Alert>}
+        {calendarError && <Alert bsStyle="danger">
+          <p>{calendarError.message}</p>
         </Alert>}
         <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
           <Field
@@ -193,7 +196,7 @@ function mapStateToProps({ teachers, calendar, appData }) {
     error: teachers.error,
     teachers: teachers.list,
     calendarSuccess: calendar.success,
-    calendareError: calendar.error,
+    calendarError: calendar.error,
     appData
   };
 }

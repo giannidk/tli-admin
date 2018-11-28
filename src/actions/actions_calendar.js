@@ -2,18 +2,45 @@ import { makeShortDate } from '../helpers';
 import {
   database,
   calendarRoot,
+  TMP_USER,
   registrationsRoot as regsRoot,
   projectsRegistrationsRoot as projectsRegsRoot
 } from '../firebase';
 
 import {
     CALENDAR_ENTRY_ADD,
+    CALENDAR_ENTRY_ADD_SUCCESS,
+    CALENDAR_ENTRY_ADD_ERROR,
 } from './types';
 
 export function addQuickbookEntry(values) {
 	return (dispatch) => {
-    database.ref(calendarRoot)
-    .push({ ...values, user: 'XXX'})
+    database.ref(`${calendarRoot}/${TMP_USER}`)
+    .push(values)
+    .then(
+        success => {
+            console.log('SUCCESS: ', success);
+            dispatch({
+                type: CALENDAR_ENTRY_ADD_SUCCESS,
+                payload: 'Your lesson has been saved'
+            });
+
+        },
+        error => {
+            console.log('ERROR: ', error);
+            dispatch({
+              type: CALENDAR_ENTRY_ADD_ERROR,
+              payload: error
+          });
+        },
+    )
+    //callbackFunction(); 
+  };
+}
+/* export function addQuickbookEntry(values) {
+	return (dispatch) => {
+    database.ref(`${calendarRoot}/${TMP_USER}`)
+    .push(values)
     .then( snap => {
       database.ref(projectsRegsRoot).child('CICCIO').child(snap.getKey())
       .set(values)
@@ -21,16 +48,20 @@ export function addQuickbookEntry(values) {
           // success
           () => {
               dispatch({
-                  type: CALENDAR_ENTRY_ADD,
+                  type: CALENDAR_ENTRY_ADD_SUCCESS,
                   payload: 'BABBODIMINCHIAAAAAAAA'
               });
 
           },
           error => {
               console.log('ERROR: ', error);
+              dispatch({
+                type: CALENDAR_ENTRY_ADD_ERROR,
+                payload: 'ERROR!!!'
+            });
           },
       )
       //callbackFunction();
     });  
   };
-}
+} */
