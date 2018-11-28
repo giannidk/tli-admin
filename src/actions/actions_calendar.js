@@ -22,13 +22,15 @@ export function addQuickbookEntry(values) {
           () => {
               dispatch({
                   type: CALENDAR_ENTRY_ADD,
-                  payload: {}
+                  payload: 'BABBODIMINCHIAAAAAAAA'
               });
+
           },
           error => {
               console.log('ERROR: ', error);
           },
-      )				
+      )
+      //callbackFunction();
     });  
   };
 }

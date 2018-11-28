@@ -30,10 +30,10 @@ export default function ( state = INITIAL_STATE, action) {
             return { ...state, [action.key]: action.payload, loading: false };
         case FETCH_REGISTRATIONS_DETAILS_FAIL:
             return { ...state, error: action.error, loading: false }; 
-        case REGISTRATIONS_ADD:
+            case REGISTRATIONS_ADD:
             return action.payload; */   
-        case CALENDAR_ENTRY_ADD:
-            return action.payload;   
+            case CALENDAR_ENTRY_ADD:
+            return { ...state, success: action.payload }; ;   
         /* case REGISTRATION_DELETE:
             return action.payload;  */
         default:

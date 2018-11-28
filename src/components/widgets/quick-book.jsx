@@ -2,22 +2,13 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux';
 import {
   Panel,
+  Alert,
 } from 'react-bootstrap'
 import DatePicker from 'react-16-bootstrap-date-picker';
 import { Field, reduxForm } from 'redux-form';
 import { Link } from 'react-router-dom';
 import { addQuickbookEntry, fetchTeachers } from '../../actions';
-
-const teachers = [
-  {
-    id: 1,
-    name: 'Ciccio Bombo',
-  },
-  {
-    id: 2,
-    name: 'Mariano comense',
-  },
-];
+import { Spinner } from '../main';
 
 const pickerTimeSlots = ['00:00', '00:30', '01:00', '01:30', '02:00', '02:30', '03:00', '03:30', '04:00', '04:30', '05:00', '05:30',
   '06:00', '06:30', '07:00', '07:30', '08:00', '08:30', '09:00', '09:30', '10:00', '10:30', '11:00', '11:30',
@@ -30,24 +21,14 @@ const pickerTimeSlots = ['00:00', '00:30', '01:00', '01:30', '02:00', '02:30', '
 class QuickBook extends Component {
 
   componentDidMount() {
-    // initializing default values for the form
-    //const { initialize, appData } = this.props;
-    //console.log(appData);
-    /*  initialize({
-            hours: '0',
-            minutes: '15',
-            date: new Date().toISOString(),              
-          });  */
-          //this.props.fetchTeachers()
+    this.props.fetchTeachers()
   }
 
   renderTeachers() {
-    //const { projects } = this.props;   
-    //const teachers = this.props.fetchTeachers() 
-    
-    return teachers.map(teacher => {
+    const { teachers } = this.props;
+    return teachers.map((teacher, key) => {
       return (
-        <option key={teacher.id} value={teacher.id}>{teacher.name}</option>
+        <option key={key} value={key}>{teacher.first_name} {teacher.last_name} ({teacher.chinese_last_name} {teacher.chinese_name})</option>
       );
     });
   }
@@ -112,12 +93,29 @@ class QuickBook extends Component {
   }
 
   render() {
-    const { handleSubmit } = this.props;
+    console.log('PPP', this.props)
+    const { handleSubmit, loading, error, teachers, calendarSuccess } = this.props;
+    if (loading || !teachers) {
+      return <Spinner />;
+    }
+    if (error) {
+      return (
+        <div>
+          <Alert bsStyle="danger">
+            <p>{error}</p>
+          </Alert>
+        </div>
+      );
+    }
+
     return (<Panel bsStyle="info">
       <Panel.Heading>
         <Panel.Title componentClass="h3">Quick book</Panel.Title>
       </Panel.Heading>
       <Panel.Body>
+        {calendarSuccess && <Alert bsStyle="success">
+          <p>Your lesson has been booked</p>
+        </Alert>}
         <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
           <Field
             label="Date"
@@ -152,7 +150,7 @@ class QuickBook extends Component {
           />
           <div className="pull-right">
             <button type="submit" className="btn btn-primary">Submit</button>
-            <Link to="/registrations" className="btn btn-danger" style={{ marginLeft: 5 }}>Cancel</Link>
+            <button type="reset" className="btn btn-danger">Cancel</button>
           </div>
         </form>
       </Panel.Body>
@@ -166,7 +164,7 @@ class QuickBook extends Component {
 function validate(values) {
   const errors = {};
   // Validate inputs  
-  if (!values.date) {
+  /* if (!values.date) {
     errors.date = "Select a date!";
   }
   if (!values.time) {
@@ -174,7 +172,7 @@ function validate(values) {
   }
   if (!values.teacher) {
     errors.teacher = "Select a teacher!";
-  }
+  } */
   if (!values.notes) {
     errors.notes = "Enter some fucking note dude!";
   }
@@ -189,11 +187,13 @@ function validate(values) {
   QuickBook
 ) */
 
-function mapStateToProps({ projects, appData }) {
+function mapStateToProps({ teachers, calendar, appData }) {
   return {
-    loading: projects.loading,
-    error: projects.error,
-    projects: projects.list,
+    loading: teachers.loading,
+    error: teachers.error,
+    teachers: teachers.list,
+    calendarSuccess: calendar.success,
+    calendareError: calendar.error,
     appData
   };
 }
