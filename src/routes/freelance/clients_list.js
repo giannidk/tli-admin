@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { PageHeader, Table, Alert } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { fetchClients } from '../../actions';
+import { fetchClients } from '../../redux/actions';
 import { Spinner } from '../../components/main';
 
 class ClientsList extends Component {

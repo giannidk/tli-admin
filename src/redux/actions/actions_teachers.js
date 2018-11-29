@@ -1,14 +1,14 @@
-import { makeShortDate } from '../helpers';
+import { makeShortDate } from '../../helpers';
 import {
   database,
   teachersRoot,
-} from '../firebase';
+} from '../../firebase';
 
 import {
     FETCH_TEACHERS,   
     FETCH_TEACHERS_SUCCESS,
     FETCH_TEACHERS_ERROR, 
-} from './types';
+} from '../constants';
 
  export function fetchTeachers() {
     return (dispatch) => {

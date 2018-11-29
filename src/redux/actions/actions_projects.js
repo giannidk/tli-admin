@@ -3,7 +3,7 @@ import {
   projectsRoot,
   registrationsRoot as regsRoot,
   projectsRegistrationsRoot as projectsRegsRoot
-} from '../firebase';
+} from '../../firebase';
 import {
 	FETCH_PROJECTS,
 	FETCH_PROJECTS_SUCCESS,
@@ -11,7 +11,7 @@ import {
 	FETCH_PROJECT_DETAILS,
 	FETCH_PROJECT_DETAILS_SUCCESS,
 	FETCH_PROJECT_DETAILS_FAIL,
-} from './types';
+} from '../constants';
 
 export function fetchProjects() {
 	return (dispatch) => {

@@ -37,10 +37,7 @@ export const FETCH_INVOICES_DETAILS = 'fetch_invoices_details';
 export const FETCH_INVOICES_DETAILS_SUCCESS = 'fetch_invoices_details_success';
 export const FETCH_INVOICES_DETAILS_FAIL = 'fetch_invoices_details_fail';
 
-export const CALENDAR_ENTRY_ADD = 'calendar_entry_add';
-export const CALENDAR_ENTRY_ADD_SUCCESS = 'calendar_entry_add_success';
-export const CALENDAR_ENTRY_ADD_ERROR = 'calendar_entry_add_error';
+export * from './calendar'
+export * from './teachers'
 
-export const FETCH_TEACHERS = 'fetch_teachers';
-export const FETCH_TEACHERS_SUCCESS = 'fetch_teachers_success';
-export const FETCH_TEACHERS_ERROR = 'fetch_teachers_error';
+

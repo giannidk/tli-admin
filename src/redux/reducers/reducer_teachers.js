@@ -2,7 +2,7 @@ import {
     FETCH_TEACHERS,   
     FETCH_TEACHERS_SUCCESS,
     FETCH_TEACHERS_ERROR, 
-} from '../actions/types';
+} from '../constants';
 
 const INITIAL_STATE = {
     list: null,    

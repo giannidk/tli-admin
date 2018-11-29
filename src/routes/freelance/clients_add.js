@@ -3,7 +3,7 @@ import { PageHeader } from 'react-bootstrap';
 import { Field, reduxForm } from 'redux-form';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { addClient } from '../../actions';
+import { addClient } from '../../redux/actions';
 
 class ClientsAdd extends Component {
 

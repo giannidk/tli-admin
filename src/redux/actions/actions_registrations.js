@@ -1,10 +1,10 @@
-import { makeShortDate } from '../helpers';
+import { makeShortDate } from '../../helpers';
 import {
   database,
   projectsRoot,
   registrationsRoot as regsRoot,
   projectsRegistrationsRoot as projectsRegsRoot
-} from '../firebase';
+} from '../../firebase';
 
 import {
     FETCH_REGISTRATIONS,
@@ -15,7 +15,7 @@ import {
     FETCH_REGISTRATIONS_DETAILS_FAIL,
     REGISTRATIONS_ADD,
     REGISTRATION_DELETE
-} from './types';
+} from '../constants';
 
  export function fetchRegistrations() {
    let registrations = {};

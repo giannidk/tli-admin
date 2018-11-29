@@ -2,7 +2,7 @@ import { toast } from "react-toastify";
 import {
     CALENDAR_ENTRY_ADD_SUCCESS,
     CALENDAR_ENTRY_ADD_ERROR,
-} from '../actions/types';
+} from '../constants';
 
 const INITIAL_STATE = {
     entries: {},    

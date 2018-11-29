@@ -5,7 +5,7 @@ import {
     FETCH_PROJECT_DETAILS,
 	FETCH_PROJECT_DETAILS_SUCCESS,
 	FETCH_PROJECT_DETAILS_FAIL,
-} from '../actions/types';
+} from '../constants';
 
 const INITIAL_STATE = {
     projects: {},
