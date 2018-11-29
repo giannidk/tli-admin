@@ -19,24 +19,25 @@ export function addQuickbookEntry(values) {
     .push(values)
     .then(
         success => {
-            console.log('SUCCESS: ', success);
             dispatch({
                 type: CALENDAR_ENTRY_ADD_SUCCESS,
-                payload: 'Your lesson has been saved'
+                payload: `Your lesson has been booked: ${success.getKey()}`
             });
-
         },
         error => {
-            console.log('ERROR: ', error);
             dispatch({
-              type: CALENDAR_ENTRY_ADD_ERROR,
-              payload: error
-          });
+                type: CALENDAR_ENTRY_ADD_ERROR,
+                payload: error.code, //"An error has occurred"
+            });
         },
     )
-    //callbackFunction(); 
   };
 }
+
+
+
+
+
 /* export function addQuickbookEntry(values) {
 	return (dispatch) => {
     database.ref(`${calendarRoot}/${TMP_USER}`)

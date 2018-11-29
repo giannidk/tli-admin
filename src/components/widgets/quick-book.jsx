@@ -4,6 +4,7 @@ import {
   Panel,
   Alert,
 } from 'react-bootstrap'
+import { toast } from 'react-toastify';
 import DatePicker from 'react-16-bootstrap-date-picker';
 import { Field, reduxForm } from 'redux-form';
 import { Link } from 'react-router-dom';
@@ -21,7 +22,7 @@ const pickerTimeSlots = ['00:00', '00:30', '01:00', '01:30', '02:00', '02:30', '
 class QuickBook extends Component {
 
   componentDidMount() {
-    this.props.fetchTeachers()
+    this.props.fetchTeachers()   
   }
 
   renderTeachers() {
@@ -94,31 +95,20 @@ class QuickBook extends Component {
 
   render() {
     console.log('PPP', this.props)
-    const { handleSubmit, loading, error, teachers, calendarSuccess, calendarError } = this.props;
-    if (loading || !teachers) {
+    const { handleSubmit, loading, error, teachers } = this.props;
+    if (loading) {
       return <Spinner />;
     }
-    if (error) {
-      return (
-        <div>
-          <Alert bsStyle="danger">
-            <p>{error}</p>
-          </Alert>
-        </div>
-      );
-    }
+    
 
-    return (<Panel bsStyle="info">
+    return (<Panel bsStyle="primary">
       <Panel.Heading>
         <Panel.Title componentClass="h3">Quick book</Panel.Title>
       </Panel.Heading>
-      <Panel.Body>
-        {calendarSuccess && <Alert bsStyle="success">
-          <p>{calendarSuccess}</p>
-        </Alert>}
-        {calendarError && <Alert bsStyle="danger">
-          <p>{calendarError.message}</p>
-        </Alert>}
+      {error &&  <Alert bsStyle="danger">
+            <p>{error}</p>
+          </Alert>}
+      {teachers && <Panel.Body>
         <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
           <Field
             label="Date"
@@ -156,7 +146,7 @@ class QuickBook extends Component {
             <button type="reset" className="btn btn-danger">Cancel</button>
           </div>
         </form>
-      </Panel.Body>
+      </Panel.Body>}
       <Panel.Footer><a href="/calendar">View all in calendar</a></Panel.Footer>
     </Panel>)
   }
@@ -182,21 +172,11 @@ function validate(values) {
   return errors;
 }
 
-
-/* export default reduxForm({
-  validate,
-  form: 'QuickbookForm',
-})(
-  QuickBook
-) */
-
 function mapStateToProps({ teachers, calendar, appData }) {
   return {
     loading: teachers.loading,
     error: teachers.error,
     teachers: teachers.list,
-    calendarSuccess: calendar.success,
-    calendarError: calendar.error,
     appData
   };
 }

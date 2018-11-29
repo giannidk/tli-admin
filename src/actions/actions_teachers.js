@@ -28,7 +28,7 @@ import {
             error => {
                 dispatch({
                     type: FETCH_TEACHERS_ERROR,
-					error: 'Registrations could not be retrieved!'
+					error: `An error has occurred, error code is: ${error.code}`,
                 });
             }
         )

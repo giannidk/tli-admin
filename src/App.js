@@ -5,11 +5,14 @@ import { Grid } from 'react-bootstrap'
 import { Provider } from 'react-redux';
 import { createStore, applyMiddleware } from 'redux';
 import ReduxThunk from 'redux-thunk';
+import { ToastContainer } from 'react-toastify';
 
 import reducers from './reducers';
 
 import './scss/app.scss';
 import './scss/spinner.scss';
+import './scss/toastify/main.scss';
+
 import { TopNav } from './components/main'
 import Login from './routes/login'
 import Home from './routes/home'
@@ -55,23 +58,24 @@ class App extends Component {
                 <Route path="/students" component={Students} />
 
                 <Route path="/clients/add" component={ClientsAdd} />
-              <Route path="/clients/:key" component={ClientsDetails} />
-              <Route path="/clients" component={ClientsList} />
-              <Route path="/projects/:key/invoice" component={ProjectsInvoice} />
-              <Route path="/projects/:key" component={ProjectsDetails} />
-              <Route path="/projects" component={ProjectsList} />
-              <Route path="/registrations/add/:projectID" component={RegistrationsAdd} />
-              <Route path="/registrations/add" component={RegistrationsAdd} />
-              <Route path="/registrations/edit/:key" component={RegistrationsEdit} />
-              <Route path="/registrations/:key" component={RegistrationsDetails} />
-              <Route path="/registrations" component={RegistrationsList} />
-              <Route path="/invoices/:invoiceKey" component={InvoiceDetails} />
-              <Route path="/invoices" component={InvoicesList} />
+                <Route path="/clients/:key" component={ClientsDetails} />
+                <Route path="/clients" component={ClientsList} />
+                <Route path="/projects/:key/invoice" component={ProjectsInvoice} />
+                <Route path="/projects/:key" component={ProjectsDetails} />
+                <Route path="/projects" component={ProjectsList} />
+                <Route path="/registrations/add/:projectID" component={RegistrationsAdd} />
+                <Route path="/registrations/add" component={RegistrationsAdd} />
+                <Route path="/registrations/edit/:key" component={RegistrationsEdit} />
+                <Route path="/registrations/:key" component={RegistrationsDetails} />
+                <Route path="/registrations" component={RegistrationsList} />
+                <Route path="/invoices/:invoiceKey" component={InvoiceDetails} />
+                <Route path="/invoices" component={InvoicesList} />
 
 
                 <Route path="/" component={Home} />
               </Switch>
             </Grid>
+            <ToastContainer />
           </div>
         </BrowserRouter>
       </Provider>
