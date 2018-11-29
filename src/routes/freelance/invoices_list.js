@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { PageHeader, Table, Alert } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { fetchInvoices } from '../../actions';
+import { fetchInvoices } from '../../redux/actions';
 import { Spinner } from '../../components/main';
 
 class InvoicesList extends Component {

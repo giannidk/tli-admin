@@ -2,7 +2,7 @@ import {
 	database,
   clientsRoot,
   clientsProjectsRoot
-} from '../firebase';
+} from '../../firebase';
 import {
 	FETCH_CLIENTS,
 	FETCH_CLIENTS_SUCCESS,
@@ -12,7 +12,7 @@ import {
   CLIENT_DETAILS,
   CLIENT_DETAILS_SUCCESS,
   CLIENT_DETAILS_FAIL
-} from './types';
+} from '../constants';
 
 export function fetchClients() {
 	return (dispatch) => {

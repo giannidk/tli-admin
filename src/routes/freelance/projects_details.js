@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { PageHeader, Alert, Table, Label } from 'react-bootstrap';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
-import { projectDetails } from '../../actions';
+import { projectDetails } from '../../redux/actions';
 import { Spinner } from '../../components/main';
 import { makeGross } from '../../helpers';
 

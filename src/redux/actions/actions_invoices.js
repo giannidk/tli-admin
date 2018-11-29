@@ -3,7 +3,7 @@ import {
   registrationsRoot as regsRoot,
   invoicesRoot,
   projectsInvoicesRoot
-} from '../firebase';
+} from '../../firebase';
 import {
 	SAVE_INVOICE,
   FETCH_INVOICES,
@@ -12,7 +12,7 @@ import {
   FETCH_INVOICES_DETAILS,
   FETCH_INVOICES_DETAILS_SUCCESS,
   FETCH_INVOICES_DETAILS_FAIL
-} from './types';
+} from '../constants';
 
 
 export function saveInvoice(values, callbackFunction) {

@@ -26,11 +26,11 @@ class Dashboard extends Component {
         </Col>
 
         <Col xs={12} sm={3}>
-        <UpcomingClasses data={upcomingDates} />
+        {/* <UpcomingClasses data={upcomingDates} /> */}
         </Col>
         
         <Col xs={12} sm={3}>
-          <Teachers data={teachers} />
+          {/* <Teachers data={teachers} /> */}
         </Col>
 
       </Row>

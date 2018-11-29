@@ -1,110 +1,131 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux';
 import {
   Panel,
+  Alert,
 } from 'react-bootstrap'
+import { toast } from 'react-toastify';
 import DatePicker from 'react-16-bootstrap-date-picker';
 import { Field, reduxForm } from 'redux-form';
 import { Link } from 'react-router-dom';
+import { addQuickbookEntry, fetchTeachers } from '../../redux/actions';
+import { Spinner } from '../main';
+
+const pickerTimeSlots = ['00:00', '00:30', '01:00', '01:30', '02:00', '02:30', '03:00', '03:30', '04:00', '04:30', '05:00', '05:30',
+  '06:00', '06:30', '07:00', '07:30', '08:00', '08:30', '09:00', '09:30', '10:00', '10:30', '11:00', '11:30',
+  '12:00', '12:30', '13:00', '13:30', '14:00', '14:30', '15:00', '15:30', '16:00', '16:30', '17:00', '17:30',
+  '18:00', '18:30', '19:00', '19:30', '20:00', '20:30', '21:00', '21:30', '22:00', '22:30', '23:00', '23:30',
+]
 
 
 
 class QuickBook extends Component {
 
   componentDidMount() {
-    // initializing default values for the form
-    //const { initialize, appData } = this.props;
-    //console.log(appData);
-    /*  initialize({
-            hours: '0',
-            minutes: '15',
-            date: new Date().toISOString(),              
-          });  */
+    this.props.fetchTeachers()   
+  }
+
+  renderTeachers() {
+    const { teachers } = this.props;
+    return teachers.map((teacher, key) => {
+      return (
+        <option key={key} value={key}>{teacher.first_name} {teacher.last_name} ({teacher.chinese_last_name} {teacher.chinese_name})</option>
+      );
+    });
+  }
+
+  renderPickerTimeSLots() {
+    return pickerTimeSlots.map(timeSlot => <option key={timeSlot} value={timeSlot}>{timeSlot}</option>)
   }
 
   renderField(field) {
     const { meta: { touched, error } } = field;
     const className = `${field.containerClass} form-group ${touched && error ? 'has-error' : ''}`;
     return (
-        <div className={className}>
-            <label>{field.label}</label>
-            <input
-                type={ field.type || 'text'}
-                className="form-control"
-                step={field.step}
-                max={field.max}
-                min={field.min}
-                {...field.input}
-            />
-            <p className="control-label">{touched ? error : ''}</p>
-        </div>
+      <div className={className}>
+        <label>{field.label}</label>
+        <input
+          type={field.type || 'text'}
+          className="form-control"
+          step={field.step}
+          max={field.max}
+          min={field.min}
+          {...field.input}
+        />
+        <p className="control-label">{touched ? error : ''}</p>
+      </div>
     );
-}
+  }
 
-renderSelectField(field){       
-  const { meta: { touched, error } } = field;
-  const className = `${field.containerClass} form-group ${touched && error ? 'has-error' : ''}`;
-  return (
+  renderSelectField(field) {
+    const { meta: { touched, error } } = field;
+    const className = `${field.containerClass} form-group ${touched && error ? 'has-error' : ''}`;
+    return (
       <div className={className}>
-      <label>{field.label}</label>
-      <div>
-      <select  className="form-control" {...field.input}>
-          {field.children}
-      </select>
-      <p className="control-label">{touched ? error : ''}</p>
+        <label>{field.label}</label>
+        <div>
+          <select className="form-control" {...field.input}>
+            {field.children}
+          </select>
+          <p className="control-label">{touched ? error : ''}</p>
+        </div>
       </div>
-  </div>
-  );
-}
+    );
+  }
 
-renderDatepicker(field){
-   const { meta: { touched, error } } = field;
-  const className = `${field.containerClass} form-group ${touched && error ? 'has-error' : ''}`;
-  return (
+  renderDatepicker(field) {
+    const { meta: { touched, error } } = field;
+    const className = `${field.containerClass} form-group ${touched && error ? 'has-error' : ''}`;
+    return (
       <div className={className}>
-           <label>{field.label}</label>
-              <DatePicker 
-                  {...field.input}
-                  showTodayButton
-                  id="date-datepicker"
-              />
-              {touched && error && <p className="control-label">{touched ? error : ''}</p>}
+        <label>{field.label}</label>
+        <DatePicker
+          {...field.input}
+          showTodayButton
+          id="date-datepicker"
+        />
+        {touched && error && <p className="control-label">{touched ? error : ''}</p>}
       </div>
-  );
-}
+    );
+  }
+
+  onSubmit(values) {
+    this.props.addQuickbookEntry(values);
+  }
 
   render() {
-    return (<Panel bsStyle="info">
+    console.log('PPP', this.props)
+    const { handleSubmit, loading, error, teachers } = this.props;
+    if (loading) {
+      return <Spinner />;
+    }
+    
+
+    return (<Panel bsStyle="primary">
       <Panel.Heading>
         <Panel.Title componentClass="h3">Quick book</Panel.Title>
       </Panel.Heading>
-      <Panel.Body>
-        {/* <form onSubmit={handleSubmit(this.onSubmit.bind(this))}> */}
-        <form onSubmit={() => console.log('Submitting...')}>
+      {error &&  <Alert bsStyle="danger">
+            <p>{error}</p>
+          </Alert>}
+      {teachers && <Panel.Body>
+        <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
           <Field
             label="Date"
             name="date"
-            containerClass="col-sm-4"
+            containerClass="col-sm-6"
             dateFormat="DD-MM-YYYY" //{appData.dateFormat}
             component={this.renderDatepicker}
           />
           <Field
-            label="Hours"
-            name="hours"
-            type="number"
-            min="0"
-            containerClass="col-sm-3"
-            component={this.renderField}
-          />
-          <Field
-            label="Minutes"
-            name="minutes"
-            type="number"
-            step="15"
-            min="0"
-            max="45"
-            containerClass="col-sm-3"
-            component={this.renderField}
-          />
+            name="time"
+            component={this.renderSelectField}
+            defaultValue="02"
+            containerClass="col-sm-6"
+            label="Time">
+            <option value="">Please select ...</option>
+            {this.renderPickerTimeSLots()}
+          </Field>
           <Field
             name="teacher"
             component={this.renderSelectField}
@@ -112,7 +133,7 @@ renderDatepicker(field){
             containerClass="col-sm-12"
             label="Teacher">
             <option value="">Please select ...</option>
-            {/* this.renderTeachers() */}
+            {this.renderTeachers()}
           </Field>
           <Field
             label="Notes"
@@ -122,21 +143,47 @@ renderDatepicker(field){
           />
           <div className="pull-right">
             <button type="submit" className="btn btn-primary">Submit</button>
-            <Link to="/registrations" className="btn btn-danger" style={{ marginLeft: 5 }}>Cancel</Link>
+            <button type="reset" className="btn btn-danger">Cancel</button>
           </div>
         </form>
-      </Panel.Body>
+      </Panel.Body>}
       <Panel.Footer><a href="/calendar">View all in calendar</a></Panel.Footer>
     </Panel>)
   }
 }
 
-//export { QuickBook }
 
+
+function validate(values) {
+  const errors = {};
+  // Validate inputs  
+  /* if (!values.date) {
+    errors.date = "Select a date!";
+  }
+  if (!values.time) {
+    errors.time = "Select a time!";
+  }
+  if (!values.teacher) {
+    errors.teacher = "Select a teacher!";
+  } */
+  if (!values.notes) {
+    errors.notes = "Enter some fucking note dude!";
+  }
+  return errors;
+}
+
+function mapStateToProps({ teachers, calendar, appData }) {
+  return {
+    loading: teachers.loading,
+    error: teachers.error,
+    teachers: teachers.list,
+    appData
+  };
+}
 
 export default reduxForm({
-  //validate,
-  form: 'RegistrationsAddForm', 
+  validate,
+  form: 'QuickbookForm',
 })(
-  QuickBook
-)
+  connect(mapStateToProps, { addQuickbookEntry, fetchTeachers })(QuickBook)
+);
