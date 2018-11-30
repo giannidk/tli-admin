@@ -7,6 +7,7 @@ import {
   UpcomingClasses,
   Teachers,
 } from '../components/widgets'
+import { Spinner } from '../components/main'
 import QuickBook from '../components/widgets/quick-book'
 import {
   teachers,
@@ -22,14 +23,15 @@ class Dashboard extends Component {
     return (
       <Row>
         <Col xs={12} sm={6}>
-          <QuickBook data={upcomingDates} />
+          <QuickBook />
         </Col>
 
         <Col xs={12} sm={3}>
-        {/* <UpcomingClasses data={upcomingDates} /> */}
+        <UpcomingClasses data={upcomingDates} />
         </Col>
         
         <Col xs={12} sm={3}>
+        <Spinner />
           {/* <Teachers data={teachers} /> */}
         </Col>
 
