@@ -7,7 +7,6 @@ import { createStore, applyMiddleware } from 'redux';
 import ReduxThunk from 'redux-thunk';
 import { ToastContainer } from 'react-toastify';
 
-//import reducers from './reducers';
 import reducers from './redux/reducers'
 
 import './scss/app.scss';

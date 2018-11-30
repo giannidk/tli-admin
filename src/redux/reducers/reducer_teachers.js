@@ -1,3 +1,4 @@
+import { connect } from 'react-redux';
 import {
     FETCH_TEACHERS,   
     FETCH_TEACHERS_SUCCESS,
@@ -18,16 +19,6 @@ export default function ( state = INITIAL_STATE, action) {
             return { ...state, list: action.payload, error: null, loading: false };
         case FETCH_TEACHERS_ERROR:
             return { ...state, error: action.error, loading: false };  
-       /*  case FETCH_REGISTRATIONS_DETAILS:
-            return { ...state, loading: true }; 
-        case FETCH_REGISTRATIONS_DETAILS_SUCCESS:
-            return { ...state, [action.key]: action.payload, loading: false };
-        case FETCH_REGISTRATIONS_DETAILS_FAIL:
-            return { ...state, error: action.error, loading: false }; 
-        case REGISTRATIONS_ADD:
-            return action.payload;   
-        case REGISTRATION_DELETE:
-            return action.payload;  */
         default:
             return state;
     }

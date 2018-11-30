@@ -4,10 +4,8 @@ import {
   Panel,
   Alert,
 } from 'react-bootstrap'
-import { toast } from 'react-toastify';
 import DatePicker from 'react-16-bootstrap-date-picker';
 import { Field, reduxForm } from 'redux-form';
-import { Link } from 'react-router-dom';
 import { addQuickbookEntry, fetchTeachers } from '../../redux/actions';
 import { Spinner } from '../main';
 
@@ -22,14 +20,16 @@ const pickerTimeSlots = ['00:00', '00:30', '01:00', '01:30', '02:00', '02:30', '
 class QuickBook extends Component {
 
   componentDidMount() {
-    this.props.fetchTeachers()   
+    this.props.fetchTeachers()
   }
 
   renderTeachers() {
     const { teachers } = this.props;
-    return teachers.map((teacher, key) => {
+    return Object.entries(teachers).map((option) => {
+      const id = option[0]
+      const teacher = option[1]
       return (
-        <option key={key} value={key}>{teacher.first_name} {teacher.last_name} ({teacher.chinese_last_name} {teacher.chinese_name})</option>
+        <option key={id} value={id}>{teacher.first_name} {teacher.last_name} ({teacher.chinese_last_name} {teacher.chinese_name})</option>
       );
     });
   }
@@ -94,21 +94,21 @@ class QuickBook extends Component {
   }
 
   render() {
-    console.log('PPP', this.props)
+    console.log('QB: ', this.props)
     const { handleSubmit, loading, error, teachers } = this.props;
     if (loading) {
       return <Spinner />;
     }
-    
+
 
     return (<Panel bsStyle="primary">
       <Panel.Heading>
         <Panel.Title componentClass="h3">Quick book</Panel.Title>
       </Panel.Heading>
-      {error &&  <Alert bsStyle="danger">
-            <p>{error}</p>
-          </Alert>}
-      {teachers && <Panel.Body>
+      {error && <Alert bsStyle="danger">
+        <p>{error}</p>
+      </Alert>}
+      <Panel.Body>
         <form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
           <Field
             label="Date"
@@ -133,7 +133,7 @@ class QuickBook extends Component {
             containerClass="col-sm-12"
             label="Teacher">
             <option value="">Please select ...</option>
-            {this.renderTeachers()}
+            {teachers && this.renderTeachers()}
           </Field>
           <Field
             label="Notes"
@@ -146,7 +146,7 @@ class QuickBook extends Component {
             <button type="reset" className="btn btn-danger">Cancel</button>
           </div>
         </form>
-      </Panel.Body>}
+      </Panel.Body>
       <Panel.Footer><a href="/calendar">View all in calendar</a></Panel.Footer>
     </Panel>)
   }
@@ -157,7 +157,7 @@ class QuickBook extends Component {
 function validate(values) {
   const errors = {};
   // Validate inputs  
-  /* if (!values.date) {
+  if (!values.date) {
     errors.date = "Select a date!";
   }
   if (!values.time) {
@@ -165,14 +165,14 @@ function validate(values) {
   }
   if (!values.teacher) {
     errors.teacher = "Select a teacher!";
-  } */
+  }
   if (!values.notes) {
     errors.notes = "Enter some fucking note dude!";
   }
   return errors;
 }
 
-function mapStateToProps({ teachers, calendar, appData }) {
+function mapStateToProps({ teachers, appData }) {
   return {
     loading: teachers.loading,
     error: teachers.error,

@@ -18,7 +18,7 @@ class UpcomingClasses extends Component {
 	}
 
   render() {
-    return (<Panel bsStyle="success">
+    return (<Panel bsStyle="primary">
       <Panel.Heading>
         <Panel.Title componentClass="h3">Your upcoming classes</Panel.Title>
       </Panel.Heading>
