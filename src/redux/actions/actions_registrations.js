@@ -4,7 +4,7 @@ import {
   projectsRoot,
   registrationsRoot as regsRoot,
   projectsRegistrationsRoot as projectsRegsRoot
-} from '../../firebase';
+} from '../../app/config';
 
 import {
     FETCH_REGISTRATIONS,

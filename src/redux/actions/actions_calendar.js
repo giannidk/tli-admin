@@ -5,7 +5,7 @@ import {
   TMP_USER,
   registrationsRoot as regsRoot,
   projectsRegistrationsRoot as projectsRegsRoot
-} from '../../firebase';
+} from '../../app/config';
 
 import {
     CALENDAR_ENTRY_ADD,
