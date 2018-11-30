@@ -10,7 +10,7 @@ import {
 } from '../components/widgets'
 import { Spinner } from '../components/main'
 import QuickBook from '../components/widgets/quick-book'
-import UserLogin from '../components/widgets/login'
+import LoginBox from '../components/widgets/login'
 import {
   teachers,
   upcomingDates,
@@ -36,7 +36,7 @@ class Dashboard extends Component {
         </Col>
         
         <Col xs={12} sm={3}>        
-        <UserLogin />
+        <LoginBox />
         {/* <Spinner /> */}
           {/* <Teachers data={teachers} /> */}
         </Col>

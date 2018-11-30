@@ -1,13 +1,12 @@
 import firebase from 'firebase';
 import React, { Component } from 'react';
 //import { Route, Redirect } from 'react-router-dom';
-import { Redirect } from 'react-router-dom';
 import { Panel, Alert, Button } from 'react-bootstrap';
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 import { emailChanged, passwordChanged, loginUser } from '../../redux/actions';
 
-class UserLogin extends Component {
+class LoginBox extends Component {
 
   constructor(props){
     super(props)
@@ -161,4 +160,4 @@ const mapStateToProps = ({ auth }) => {
 export default reduxForm({
   validate,
   form: 'loginForm'
-})(connect(mapStateToProps, { emailChanged, passwordChanged, loginUser })(UserLogin));
+})(connect(mapStateToProps, { emailChanged, passwordChanged, loginUser })(LoginBox));
