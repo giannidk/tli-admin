@@ -31,6 +31,9 @@ class TopNav extends Component {
           <LinkContainer to="/login">
             <NavItem eventKey={1}>Login/signup</NavItem>
           </LinkContainer>
+          <LinkContainer to="/login-auth">
+            <NavItem eventKey={1}>Login AUTH</NavItem>
+          </LinkContainer>
           
           <NavDropdown eventKey={2} title="Student" id="admin-nav-dropdown">
 

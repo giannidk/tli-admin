@@ -6,6 +6,7 @@ import InvoicesReducer from './reducer_invoices';
 import RegistrationsReducer from './reducer_registrations';
 import CalendarReducer from './reducer_calendar';
 import TeachersReducer from './reducer_teachers';
+import AuthReducer from './reducer_auth';
 
 const rootReducer = combineReducers({
     appData: () => {
@@ -24,6 +25,7 @@ const rootReducer = combineReducers({
     invoices: InvoicesReducer,
     calendar: CalendarReducer,
     teachers: TeachersReducer,
+    auth: AuthReducer,
     form: formReducer
 })
 

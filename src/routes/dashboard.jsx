@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import {
   Row,
   Col,
+  Button,
 } from 'react-bootstrap'
 import { 
   UpcomingClasses,
@@ -9,15 +10,19 @@ import {
 } from '../components/widgets'
 import { Spinner } from '../components/main'
 import QuickBook from '../components/widgets/quick-book'
+import UserLogin from '../components/widgets/login'
 import {
   teachers,
   upcomingDates,
 } from '../constants'
 
 
+import firebase from 'firebase'
+
 
 class Dashboard extends Component {
 
+  
   render() {
     console.log(this.props)
     return (
@@ -30,8 +35,9 @@ class Dashboard extends Component {
         <UpcomingClasses data={upcomingDates} />
         </Col>
         
-        <Col xs={12} sm={3}>
-        <Spinner />
+        <Col xs={12} sm={3}>        
+        <UserLogin />
+        {/* <Spinner /> */}
           {/* <Teachers data={teachers} /> */}
         </Col>
 

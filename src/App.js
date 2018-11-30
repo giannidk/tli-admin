@@ -15,6 +15,7 @@ import './scss/toastify/main.scss';
 
 import { TopNav } from './components/main'
 import Login from './routes/login'
+import LoginAuth from './routes/login-auth'
 import Home from './routes/home'
 import Dashboard from './routes/dashboard'
 import Teachers from './routes/teachers'
@@ -52,6 +53,7 @@ class App extends Component {
             <Grid fluid={false}>
               <Switch>
                 <Route path="/login" component={Login} />
+                <Route path="/login-auth" component={LoginAuth} />
                 <Route path="/dashboard" component={Dashboard} />
                 <Route path="/teachers/:key" component={TeacherDetails} />
                 <Route path="/teachers" component={Teachers} />
