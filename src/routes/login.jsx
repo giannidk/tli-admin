@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import LoginBox from '../components/widgets/login'
+//import LoginBox from '../components/widgets/login'
 import SignupForm from '../components/signup-form'
 
 class UserLogin extends Component {

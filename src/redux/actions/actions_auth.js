@@ -1,4 +1,4 @@
-import { auth } from '../../app/config';
+import { database, auth, usersRoot } from '../../app/config';
 
 import {
   SIGNUP_USER,
@@ -54,28 +54,49 @@ export const getLoggedInState = () => {
 
 
 
-export const signupUser = ({email, password}) => {
+export const signupUser = (user) => {
+  const { email, password, isTeacher } = user
   return (dispatch) => {
     dispatch({
       type: SIGNUP_USER,
     })
     auth.createUserWithEmailAndPassword(email, password)
-    .then(
-      user => {
-        console.log(user, user.uid)
-        dispatch({
-          type: SIGNUP_USER_SUCCESS,
-          payload: user
-        });
-      },
-      error => {
-        console.log(error)
-        dispatch({
-          type: SIGNUP_USER_FAIL,
-          error: error.message
-        });
-      }
-    )
+      .then(
+        success => {
+          // the user is created
+          const newUserRoot = `${usersRoot}/${success.user.uid}`
+          // insert user in users path
+          database.ref(newUserRoot)
+            .set({ isTeacher })
+            .then(
+              () => {
+                // if user is saved in path, check for log in change and return to reducer
+                auth.onAuthStateChanged(currentUser => {
+                  if (currentUser) {
+                    console.log('CURRENT USER: ', currentUser)
+                    dispatch({
+                      type: SIGNUP_USER_SUCCESS,
+                      payload: currentUser
+                    })
+                  }
+                })
+              },
+              error => {
+                dispatch({
+                  type: SIGNUP_USER_FAIL,
+                  error: error.message
+                });
+              }
+            )
+        },
+        error => {
+          console.log(error)
+          dispatch({
+            type: SIGNUP_USER_FAIL,
+            error: error.message
+          });
+        }
+      )
   }
 }
 

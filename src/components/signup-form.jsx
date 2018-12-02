@@ -1,4 +1,3 @@
-import firebase from 'firebase';
 import React, { Component } from 'react';
 //import { Route, Redirect } from 'react-router-dom';
 import { Panel, Alert, Button } from 'react-bootstrap';
@@ -10,7 +9,6 @@ import { Spinner } from '../components/main/spinner'
 class SignupForm extends Component {
 
   state = {
-    //userIsLogged: false,
     userEmail: '',
     userPassword: '',
     userColor: '',
@@ -37,14 +35,9 @@ class SignupForm extends Component {
     this.setState((state) => ({ user: { ...state.user, isTeacher: e.target.checked } }))
   }
 
-
   registerUser() {
-    const { email, password } = this.state.user
-    console.log('USER TO REGISTER: ', this.state.user)
-    this.props.signupUser({email, password})
+    this.props.signupUser(this.state.user)
   }
-
-
 
   renderErrorAlert() {
     const { error } = this.props;
@@ -98,8 +91,8 @@ class SignupForm extends Component {
   }
 
   render() {
-    const { handleSubmit, error, loading } = this.props;
-    const { userEmail, userPassword, userColor, isTeacher } = this.state;
+    const { handleSubmit, loading } = this.props;
+    const { userEmail, userPassword, isTeacher } = this.state;
     /* if (this.state.userIsLogged) {
       this.updateUserData()
       return <Button onClick={() => this.logoutUser()}>Logout</Button>
@@ -131,15 +124,6 @@ class SignupForm extends Component {
           component={this.renderField}
         />
         <Field
-          label="Favorite color"
-          name="color"
-          placeholder="favorite color"
-          value={userColor}
-          onChange={(e) => this.changeValue('color', e)}
-          component={this.renderField}
-        />
-
-        <Field
           label="I am a teacher"
           name="isTeacher"
           id="isTeacher"
@@ -152,8 +136,8 @@ class SignupForm extends Component {
 
 
         <div className="pull-right">
-          <button type="submit" className="btn btn-primary">Sign up</button>
-          <button type="reset" className="btn btn-danger" style={{ marginLeft: 5 }} onClick={() => { this.props.reset() }}>Cancel</button>
+          <Button type="submit" bsStyle="primary">Sign up</Button>
+          <Button type="reset" bsStyle="danger" style={{ marginLeft: 5 }} onClick={() => { this.props.reset() }}>Cancel</Button>
         </div>
       </form>
         </Panel.Body>
