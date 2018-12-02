@@ -1,21 +1,27 @@
 import { auth } from '../../app/config';
 
-import { 
-    EMAIL_CHANGED,
-    PASSWORD_CHANGED,
-    LOGIN_USER,
-    LOGIN_USER_SUCCESS,
-    LOGIN_USER_FAIL,
-    LOGOUT_USER,
-    SET_LOGGED_USER,
-    GET_LOGIN_STATE
+import {
+  SIGNUP_USER,
+  SIGNUP_USER_SUCCESS,
+  SIGNUP_USER_FAIL,
+
+
+  EMAIL_CHANGED,
+  PASSWORD_CHANGED,
+  LOGIN_USER,
+  LOGIN_USER_SUCCESS,
+  LOGIN_USER_FAIL,
+  LOGOUT_USER,
+  SET_LOGGED_USER,
+  GET_LOGIN_STATE,
 } from '../constants';
 
 
 export const setLoggedInState = (user) => {
   return (dispatch) => {
     dispatch(
-      { type: SET_LOGGED_USER,
+      {
+        type: SET_LOGGED_USER,
         payload: user
       }
     );
@@ -26,22 +32,51 @@ export const getLoggedInState = () => {
   return (dispatch) => {
     dispatch({ type: GET_LOGIN_STATE });
     auth.onAuthStateChanged((user) => {
-      if(user){
+      if (user) {
         dispatch(
-          { type: SET_LOGGED_USER,
+          {
+            type: SET_LOGGED_USER,
             payload: user
           }
         );
       }
-      else{
+      else {
         console.log('NO USER');
         dispatch({
-            type: LOGOUT_USER      
+          type: LOGOUT_USER
         });
-      } 
-       
-  });
+      }
+
+    });
+  }
 }
+
+
+
+
+export const signupUser = ({email, password}) => {
+  return (dispatch) => {
+    dispatch({
+      type: SIGNUP_USER,
+    })
+    auth.createUserWithEmailAndPassword(email, password)
+    .then(
+      user => {
+        console.log(user, user.uid)
+        dispatch({
+          type: SIGNUP_USER_SUCCESS,
+          payload: user
+        });
+      },
+      error => {
+        console.log(error)
+        dispatch({
+          type: SIGNUP_USER_FAIL,
+          error: error.message
+        });
+      }
+    )
+  }
 }
 
 
@@ -49,52 +84,52 @@ export const getLoggedInState = () => {
 
 
 export const emailChanged = (text) => {
-    return {
-        type: EMAIL_CHANGED,
-        payload: text
-    };
+  return {
+    type: EMAIL_CHANGED,
+    payload: text
+  };
 };
 
 export const passwordChanged = (text) => {
-    return {
-        type: PASSWORD_CHANGED,
-        payload: text
-    };
+  return {
+    type: PASSWORD_CHANGED,
+    payload: text
+  };
 };
 
 
 
-export const loginUser = ({ email, password }, callback ) => {
+export const loginUser = ({ email, password }, callback) => {
   console.log(email, password)
-  return(dispatch) => {
+  return (dispatch) => {
     dispatch({ type: LOGIN_USER });
     auth.signInWithEmailAndPassword(email, password)
-    .then(
-      user => { 
-        dispatch({
-          type: LOGIN_USER_SUCCESS,
-          payload: user
-        });
-        callback();
-      },
-      error => { 
-        console.log( error.message );        
-        dispatch({ 
-          type: LOGIN_USER_FAIL,
-          error: error.message 
-        });
-      }
-    )
+      .then(
+        user => {
+          dispatch({
+            type: LOGIN_USER_SUCCESS,
+            payload: user
+          });
+          callback();
+        },
+        error => {
+          console.log(error.message);
+          dispatch({
+            type: LOGIN_USER_FAIL,
+            error: error.message
+          });
+        }
+      )
   }
 }
 
 export const logoutUser = (callback) => {
   console.log('LOGOUT FROM ACTION');
-    return (dispatch) => {
-      auth.signOut();
-        dispatch({
-            type: LOGOUT_USER      
-        });
-          callback();
-    };
+  return (dispatch) => {
+    auth.signOut();
+    dispatch({
+      type: LOGOUT_USER
+    });
+    callback();
+  };
 };
