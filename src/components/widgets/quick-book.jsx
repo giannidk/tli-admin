@@ -94,7 +94,6 @@ class QuickBook extends Component {
   }
 
   render() {
-    console.log('QB: ', this.props)
     const { handleSubmit, loading, error, teachers } = this.props;
     if (loading) {
       return <Spinner />;

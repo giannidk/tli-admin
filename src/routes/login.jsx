@@ -1,22 +1,21 @@
-import React, { Component } from 'react'
-import { Jumbotron, Button } from 'react-bootstrap'
+import React, { Component } from 'react';
+//import LoginBox from '../components/widgets/login'
+import SignupForm from '../components/signup-form'
 
+class UserLogin extends Component {
 
-class Login extends Component{
-	render(){
-		return(
-			<Jumbotron>
-  <h1>Log in</h1>
-  <p>
-    This is a simple hero unit, a simple jumbotron-style component for calling
-    extra attention to featured content or information.
-  </p>
-  <p>
-    <Button bsStyle="primary">Learn more</Button>
-  </p>
-</Jumbotron>
-		)
-	}
+  render() {
+    return (
+      <div className="loginOuterContainer">
+        <div className="loginInnerContainer col-xs-12 col-sm-8 col-md-6 col-lg-4">
+          <SignupForm />
+          <hr />
+          {/* <LoginBox /> */}
+        </div>
+      </div>
+    );
+  }
 }
 
-export default Login
+
+export default UserLogin

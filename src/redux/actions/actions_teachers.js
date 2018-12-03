@@ -1,7 +1,7 @@
 import {
     database,
     teachersRoot,
-} from '../../firebase';
+} from '../../app/config';
 
 import {
     FETCH_TEACHERS,

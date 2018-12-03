@@ -5,21 +5,17 @@ import {
 } from 'react-bootstrap'
 import { 
   UpcomingClasses,
-  Teachers,
 } from '../components/widgets'
-import { Spinner } from '../components/main'
 import QuickBook from '../components/widgets/quick-book'
+import LoginBox from '../components/widgets/login'
 import {
-  teachers,
   upcomingDates,
 } from '../constants'
-
 
 
 class Dashboard extends Component {
 
   render() {
-    console.log(this.props)
     return (
       <Row>
         <Col xs={12} sm={6}>
@@ -30,8 +26,9 @@ class Dashboard extends Component {
         <UpcomingClasses data={upcomingDates} />
         </Col>
         
-        <Col xs={12} sm={3}>
-        <Spinner />
+        <Col xs={12} sm={3}>        
+        <LoginBox />
+        {/* <Spinner /> */}
           {/* <Teachers data={teachers} /> */}
         </Col>
 

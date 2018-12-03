@@ -1,4 +1,3 @@
-import { connect } from 'react-redux';
 import {
     FETCH_TEACHERS,   
     FETCH_TEACHERS_SUCCESS,
