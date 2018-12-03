@@ -33,6 +33,7 @@ export const getLoggedInState = () => {
     dispatch({ type: GET_LOGIN_STATE });
     auth.onAuthStateChanged((user) => {
       if (user) {
+        console.log('USER!!!!!!');
         dispatch(
           {
             type: SET_LOGGED_USER,

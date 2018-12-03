@@ -4,7 +4,7 @@ import React, { Component } from 'react';
 import { Panel, Alert, Button } from 'react-bootstrap';
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
-import { emailChanged, passwordChanged, loginUser } from '../../redux/actions';
+import { getLoggedInState, emailChanged, passwordChanged, loginUser } from '../../redux/actions';
 import { Spinner } from '../main'
 
 class LoginBox extends Component {
@@ -95,7 +95,6 @@ class LoginBox extends Component {
     );
   }
   render() {
-    console.log('STATE: ', this.state)
     const { handleSubmit, userEmail, userPassword } = this.props;
     if(this.state.loading){
       return <Spinner />
@@ -162,4 +161,4 @@ const mapStateToProps = ({ auth }) => {
 export default reduxForm({
   validate,
   form: 'loginForm'
-})(connect(mapStateToProps, { emailChanged, passwordChanged, loginUser })(LoginBox));
+})(connect(mapStateToProps, { getLoggedInState, emailChanged, passwordChanged, loginUser })(LoginBox));
