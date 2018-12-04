@@ -1,10 +1,9 @@
 import firebase from 'firebase';
 import React, { Component } from 'react';
-//import { Route, Redirect } from 'react-router-dom';
 import { Panel, Alert, Button } from 'react-bootstrap';
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
-import { getLoggedInState, emailChanged, passwordChanged, loginUser } from '../../redux/actions';
+import { emailChanged, passwordChanged, loginUser } from '../../redux/actions';
 import { Spinner } from '../main'
 
 class LoginBox extends Component {
@@ -63,7 +62,6 @@ class LoginBox extends Component {
   }
 
 
-
   renderErrorAlert() {
     const { error } = this.props;
     if (error) {
@@ -94,6 +92,7 @@ class LoginBox extends Component {
       </div>
     );
   }
+
   render() {
     const { handleSubmit, userEmail, userPassword } = this.props;
     if(this.state.loading){
@@ -161,4 +160,4 @@ const mapStateToProps = ({ auth }) => {
 export default reduxForm({
   validate,
   form: 'loginForm'
-})(connect(mapStateToProps, { getLoggedInState, emailChanged, passwordChanged, loginUser })(LoginBox));
+})(connect(mapStateToProps, { emailChanged, passwordChanged, loginUser })(LoginBox));

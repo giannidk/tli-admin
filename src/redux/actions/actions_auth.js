@@ -5,7 +5,6 @@ import {
   SIGNUP_USER_SUCCESS,
   SIGNUP_USER_FAIL,
 
-
   EMAIL_CHANGED,
   PASSWORD_CHANGED,
   LOGIN_USER,
@@ -14,45 +13,35 @@ import {
   LOGOUT_USER,
   SET_LOGGED_USER,
   GET_LOGIN_STATE,
+
+
+
+  FETCH_USER,
 } from '../constants';
 
 
-export const setLoggedInState = (user) => {
+export const fetchUser = () => {
   return (dispatch) => {
-    dispatch(
-      {
-        type: SET_LOGGED_USER,
-        payload: user
-      }
-    );
-  }
-}
-
-export const getLoggedInState = () => {
-  return (dispatch) => {
-    dispatch({ type: GET_LOGIN_STATE });
+    //dispatch({ type: GET_LOGIN_STATE });
     auth.onAuthStateChanged((user) => {
       if (user) {
-        console.log('USER!!!!!!');
         dispatch(
           {
-            type: SET_LOGGED_USER,
-            payload: user
+            type: FETCH_USER,
+            payload: user,
           }
         );
       }
       else {
-        console.log('NO USER');
         dispatch({
-          type: LOGOUT_USER
+          type: FETCH_USER,
+          payload: null,
         });
       }
 
     });
   }
 }
-
-
 
 
 export const signupUser = (user) => {
@@ -101,10 +90,6 @@ export const signupUser = (user) => {
   }
 }
 
-
-
-
-
 export const emailChanged = (text) => {
   return {
     type: EMAIL_CHANGED,
@@ -118,8 +103,6 @@ export const passwordChanged = (text) => {
     payload: text
   };
 };
-
-
 
 export const loginUser = ({ email, password }, callback) => {
   console.log(email, password)
