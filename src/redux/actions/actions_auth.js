@@ -1,28 +1,24 @@
 import { database, auth, usersRoot } from '../../app/config';
 
 import {
+  FETCH_USER,
   SIGNUP_USER,
   SIGNUP_USER_SUCCESS,
   SIGNUP_USER_FAIL,
 
   EMAIL_CHANGED,
   PASSWORD_CHANGED,
+
   LOGIN_USER,
   LOGIN_USER_SUCCESS,
   LOGIN_USER_FAIL,
   LOGOUT_USER,
-  SET_LOGGED_USER,
-  GET_LOGIN_STATE,
 
-
-
-  FETCH_USER,
 } from '../constants';
 
 
 export const fetchUser = () => {
   return (dispatch) => {
-    //dispatch({ type: GET_LOGIN_STATE });
     auth.onAuthStateChanged((user) => {
       if (user) {
         dispatch(
