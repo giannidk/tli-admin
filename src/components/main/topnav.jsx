@@ -3,13 +3,13 @@ import { Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap'
 
 class TopNav extends Component {
-
+  
   render() {
     return (<Navbar inverse collapseOnSelect fluid fixedTop>
       <Navbar.Header>
         <Navbar.Brand>
           <LinkContainer to="/">
-          <a href="/">TLI</a>
+            <a href="/">TLI</a>
           </LinkContainer>
         </Navbar.Brand>
         <Navbar.Toggle />
@@ -28,13 +28,16 @@ class TopNav extends Component {
         </Nav>
 
         <Nav pullRight>
-          <LinkContainer to="/login">
-            <NavItem eventKey={1}>Login/signup</NavItem>
-          </LinkContainer>
-          <LinkContainer to="/login-auth">
-            <NavItem eventKey={1}>Login AUTH</NavItem>
-          </LinkContainer>
-          
+        <LinkContainer to="/login">
+              <NavItem eventKey={1}>Login</NavItem>
+            </LinkContainer>
+            <LinkContainer to="/signup">
+              <NavItem eventKey={1}>Signup</NavItem>
+            </LinkContainer>
+            <LinkContainer to="/login-auth">
+              <NavItem eventKey={1}>Login AUTH</NavItem>
+            </LinkContainer>
+
           <NavDropdown eventKey={2} title="Student" id="admin-nav-dropdown">
 
             <LinkContainer to="/teachers">
@@ -62,23 +65,23 @@ class TopNav extends Component {
             <MenuItem eventKey={3.3}>Settings</MenuItem>
             <MenuItem eventKey={3.4}>Logout</MenuItem>
           </NavDropdown>
-          
+
           <NavDropdown eventKey={4} title="FREELANCE" id="admin-nav-dropdown">
-          <LinkContainer to="/clients">
-                    <MenuItem>Clients</MenuItem>
-                  </LinkContainer>
-                  
-                  <LinkContainer to="/projects">
-                    <MenuItem>Projects</MenuItem>
-                  </LinkContainer>
-                  
-                  <LinkContainer to="/registrations">
-                    <MenuItem>Registrations</MenuItem>
-                  </LinkContainer>
-                  
-                  <LinkContainer to="/invoices">
-                    <MenuItem>Invoices</MenuItem>
-                  </LinkContainer>       
+            <LinkContainer to="/clients">
+              <MenuItem>Clients</MenuItem>
+            </LinkContainer>
+
+            <LinkContainer to="/projects">
+              <MenuItem>Projects</MenuItem>
+            </LinkContainer>
+
+            <LinkContainer to="/registrations">
+              <MenuItem>Registrations</MenuItem>
+            </LinkContainer>
+
+            <LinkContainer to="/invoices">
+              <MenuItem>Invoices</MenuItem>
+            </LinkContainer>
           </NavDropdown>
         </Nav>
       </Navbar.Collapse>
@@ -86,4 +89,4 @@ class TopNav extends Component {
   }
 }
 
-export { TopNav }
+export default TopNav

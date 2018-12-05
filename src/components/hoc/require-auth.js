@@ -2,6 +2,8 @@ import React, { Component } from "react";
 import { connect } from "react-redux";
 import { Redirect } from 'react-router-dom';
 
+const redirectTarget = '/login'
+
 export default function(ComposedComponent) {
   class Authentication extends Component {
 
@@ -10,7 +12,7 @@ export default function(ComposedComponent) {
           //this.props.history.push("/")
           return (
             <Redirect to={{
-              pathname: '/',
+              pathname: redirectTarget,
               state: { from: this.props.location }
             }} />
           )
@@ -22,7 +24,7 @@ export default function(ComposedComponent) {
             //this.props.history.push("/")
             return (
                 <Redirect to={{
-                  pathname: '/',
+                  pathname: redirectTarget,
                   state: { from: this.props.location }
                 }} />
               )
@@ -34,7 +36,7 @@ export default function(ComposedComponent) {
         return <ComposedComponent {...this.props} />;
       }
       return <Redirect to={{
-        pathname: '/',
+        pathname: redirectTarget,
         state: { from: this.props.location }
       }} />;
     }

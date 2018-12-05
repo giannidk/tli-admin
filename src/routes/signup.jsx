@@ -1,13 +1,13 @@
 import React, { Component } from 'react';
-import LoginForm from '../components/widgets/login'
+import SignupForm from '../components/signup-form'
 
-class UserLogin extends Component {
+class Signup extends Component {
 
   render() {
     return (
       <div className="loginOuterContainer">
         <div className="loginInnerContainer col-xs-12 col-sm-8 col-md-6 col-lg-4">
-          <LoginForm />
+          <SignupForm />
         </div>
       </div>
     );
@@ -15,4 +15,4 @@ class UserLogin extends Component {
 }
 
 
-export default UserLogin
+export default Signup

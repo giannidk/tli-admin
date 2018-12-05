@@ -1,35 +1,28 @@
 import firebase from 'firebase';
 import React, { Component } from 'react';
-import { Panel, Alert, Button } from 'react-bootstrap';
+import { Panel, Alert, ButtonGroup, Button, Glyphicon } from 'react-bootstrap';
+import { Redirect, Link, withRouter } from 'react-router-dom';
 import { Field, reduxForm } from 'redux-form';
 import { connect } from 'react-redux';
 import { emailChanged, passwordChanged, loginUser } from '../../redux/actions';
 import { Spinner } from '../main'
 
-class LoginBox extends Component {
+class LoginForm extends Component {
 
-  constructor(props){
+  constructor(props) {
     super(props)
     this.state = {
-      userIsLogged: false,
+      user: null,
       loading: true,
     }
   }
 
-  componentWillMount() {    
-    firebase.auth().onAuthStateChanged( (user) => {
+  componentWillMount() {
+    firebase.auth().onAuthStateChanged((user) => {
       if (user) {
         // User is signed in.        
         this.setState({
-          userIsLogged: true, user: {
-            displayName: user.displayName,
-            email :user.email,
-            emailVerified: user.emailVerified,
-            photoURL: user.photoURL,
-            isAnonymous: user.isAnonymous,
-            uid: user.uid,
-            providerData: user.providerData,
-          }
+          user: user
         })
         // ...
       } else {
@@ -37,11 +30,11 @@ class LoginBox extends Component {
         // User is signed out.
         // ...
       }
-      this.setState({loading: false})
+      this.setState({ loading: false })
     });
   }
 
-  logoutUser(){
+  logoutUser() {
     firebase.auth().signOut()
   }
 
@@ -56,8 +49,9 @@ class LoginBox extends Component {
   onSubmit() {
     const { email, password } = this.props;
     this.props.loginUser({ email, password },
-      () => { this.setState({ redirectToReferrer: true }); }
-      //() => {this.props.history.push('/dashboard');}      
+      () => { 
+        this.props.history.push("/dashboard");
+      }
     );
   }
 
@@ -95,10 +89,10 @@ class LoginBox extends Component {
 
   render() {
     const { handleSubmit, userEmail, userPassword } = this.props;
-    if(this.state.loading){
+    if (this.state.loading) {
       return <Spinner />
     }
-    if(this.state.userIsLogged){
+    if (this.state.user) {
       return <Button onClick={() => this.logoutUser()}>Logout</Button>
     }
     return (
@@ -124,10 +118,23 @@ class LoginBox extends Component {
               onChange={this.onPasswordChange.bind(this)}
               component={this.renderField}
             />
-            <div className="pull-right">
-              <button type="submit" className="btn btn-primary">Log in</button>
-              <button type="reset" className="btn btn-danger" style={{ marginLeft: 5 }} onClick={() => { this.props.reset() }}>Cancel</button>
-            </div>
+            <p><Link to={`/signup`}>Not a member yet? Sign up here</Link></p>
+            <ButtonGroup className="pull-right">
+              <Button
+                bsStyle="primary"
+                type="submit"
+              >
+                <Glyphicon glyph="log-in" /> Log in
+              </Button>
+              <Button
+                bsStyle="danger"
+                type="reset"
+                onClick={() => { this.props.reset() }}
+                style={{ marginLeft: 5 }}
+              >
+                <Glyphicon glyph="remove" /> Cancel
+              </Button>
+            </ButtonGroup>
           </form>
         </Panel.Body>
       </Panel>
@@ -152,12 +159,12 @@ function validate(values) {
 }
 
 const mapStateToProps = ({ auth }) => {
-  const { email, password, error, loading } = auth;
-  return { email, password, error, loading };
+  const { email, password, error, loading, user } = auth;
+  return { email, password, error, loading, user };
 };
 
 
-export default reduxForm({
+export default withRouter(reduxForm({
   validate,
   form: 'loginForm'
-})(connect(mapStateToProps, { emailChanged, passwordChanged, loginUser })(LoginBox));
+})(connect(mapStateToProps, { emailChanged, passwordChanged, loginUser })(LoginForm)));

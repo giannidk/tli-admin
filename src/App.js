@@ -9,8 +9,9 @@ import './scss/spinner.scss';
 import './scss/toastify/main.scss';
 
 import requireAuth from "./components/hoc/require-auth";
-import { TopNav } from './components/main'
+import TopNav from './components/main/topnav'
 import Login from './routes/login'
+import Signup from './routes/signup'
 import LoginAuth from './routes/login-auth'
 import Home from './routes/home'
 import Dashboard from './routes/dashboard'
@@ -45,6 +46,7 @@ class App extends Component {
             <TopNav />
             <Grid fluid={false}>
               <Switch>
+                <Route path="/signup" component={Signup} />
                 <Route path="/login" component={Login} />
                 <Route path="/login-auth" component={LoginAuth} />
                 <Route path="/dashboard" component={Dashboard} />
@@ -66,7 +68,7 @@ class App extends Component {
                 <Route path="/invoices/:invoiceKey" component={InvoiceDetails} />
                 <Route path="/invoices" component={InvoicesList} />
 
-                <Route path="/" component={Home} />
+                <Route path="/" component={requireAuth(Home)} />
               </Switch>
             </Grid>
             <ToastContainer />
