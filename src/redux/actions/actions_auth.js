@@ -53,7 +53,7 @@ export const signupUser = (user) => {
           const newUserRoot = `${usersRoot}/${success.user.uid}`
           // insert user in users path
           database.ref(newUserRoot)
-            .set({ isTeacher })
+            .set({ isTeacher: isTeacher || false })
             .then(
               () => {
                 // if user is saved in path, check for log in change and return to reducer

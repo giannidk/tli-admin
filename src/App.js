@@ -49,7 +49,7 @@ class App extends Component {
                 <Route path="/signup" component={Signup} />
                 <Route path="/login" component={Login} />
                 <Route path="/login-auth" component={LoginAuth} />
-                <Route path="/dashboard" component={Dashboard} />
+                <Route path="/dashboard" component={requireAuth(Dashboard)} />
                 <Route path="/teachers/:key" component={TeacherDetails} />
                 <Route path="/teachers" component={Teachers} />
                 <Route path="/students" component={requireAuth(Students)} />
@@ -68,7 +68,7 @@ class App extends Component {
                 <Route path="/invoices/:invoiceKey" component={InvoiceDetails} />
                 <Route path="/invoices" component={InvoicesList} />
 
-                <Route path="/" component={requireAuth(Home)} />
+                <Route path="/" component={Home} />
               </Switch>
             </Grid>
             <ToastContainer />
