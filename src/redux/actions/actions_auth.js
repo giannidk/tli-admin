@@ -21,14 +21,16 @@ export const fetchUser = () => {
   return (dispatch) => {
     auth.onAuthStateChanged((user) => {
       if (user) {
+        console.log('USER!!!!!!')
         dispatch(
           {
             type: FETCH_USER,
             payload: user,
           }
-        );
-      }
-      else {
+          );
+        }
+        else {
+          console.log('NOOOO :(((')
         dispatch({
           type: FETCH_USER,
           payload: null,
