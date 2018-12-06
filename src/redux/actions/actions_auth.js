@@ -1,58 +1,43 @@
 import { database, auth, usersRoot } from '../../app/config';
 
 import {
+  FETCH_USER,
   SIGNUP_USER,
   SIGNUP_USER_SUCCESS,
   SIGNUP_USER_FAIL,
 
-
   EMAIL_CHANGED,
   PASSWORD_CHANGED,
+
   LOGIN_USER,
   LOGIN_USER_SUCCESS,
   LOGIN_USER_FAIL,
   LOGOUT_USER,
-  SET_LOGGED_USER,
-  GET_LOGIN_STATE,
+
 } from '../constants';
 
 
-export const setLoggedInState = (user) => {
+export const fetchUser = () => {
   return (dispatch) => {
-    dispatch(
-      {
-        type: SET_LOGGED_USER,
-        payload: user
-      }
-    );
-  }
-}
-
-export const getLoggedInState = () => {
-  return (dispatch) => {
-    dispatch({ type: GET_LOGIN_STATE });
     auth.onAuthStateChanged((user) => {
       if (user) {
-        console.log('USER!!!!!!');
         dispatch(
           {
-            type: SET_LOGGED_USER,
-            payload: user
+            type: FETCH_USER,
+            payload: user,
           }
-        );
-      }
-      else {
-        console.log('NO USER');
+          );
+        }
+        else {
         dispatch({
-          type: LOGOUT_USER
+          type: FETCH_USER,
+          payload: null,
         });
       }
 
     });
   }
 }
-
-
 
 
 export const signupUser = (user) => {
@@ -68,13 +53,12 @@ export const signupUser = (user) => {
           const newUserRoot = `${usersRoot}/${success.user.uid}`
           // insert user in users path
           database.ref(newUserRoot)
-            .set({ isTeacher })
+            .set({ isTeacher: isTeacher || false })
             .then(
               () => {
                 // if user is saved in path, check for log in change and return to reducer
                 auth.onAuthStateChanged(currentUser => {
                   if (currentUser) {
-                    console.log('CURRENT USER: ', currentUser)
                     dispatch({
                       type: SIGNUP_USER_SUCCESS,
                       payload: currentUser
@@ -91,7 +75,6 @@ export const signupUser = (user) => {
             )
         },
         error => {
-          console.log(error)
           dispatch({
             type: SIGNUP_USER_FAIL,
             error: error.message
@@ -100,10 +83,6 @@ export const signupUser = (user) => {
       )
   }
 }
-
-
-
-
 
 export const emailChanged = (text) => {
   return {
@@ -119,10 +98,7 @@ export const passwordChanged = (text) => {
   };
 };
 
-
-
 export const loginUser = ({ email, password }, callback) => {
-  console.log(email, password)
   return (dispatch) => {
     dispatch({ type: LOGIN_USER });
     auth.signInWithEmailAndPassword(email, password)
@@ -135,7 +111,6 @@ export const loginUser = ({ email, password }, callback) => {
           callback();
         },
         error => {
-          console.log(error.message);
           dispatch({
             type: LOGIN_USER_FAIL,
             error: error.message
@@ -146,7 +121,6 @@ export const loginUser = ({ email, password }, callback) => {
 }
 
 export const logoutUser = (callback) => {
-  console.log('LOGOUT FROM ACTION');
   return (dispatch) => {
     auth.signOut();
     dispatch({

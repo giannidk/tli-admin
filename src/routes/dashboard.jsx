@@ -7,7 +7,8 @@ import {
   UpcomingClasses,
 } from '../components/widgets'
 import QuickBook from '../components/widgets/quick-book'
-import LoginBox from '../components/widgets/login'
+//import LoginBox from '../components/widgets/login'
+import UserBox from '../components/widgets/user-box'
 import {
   upcomingDates,
 } from '../constants'
@@ -27,7 +28,8 @@ class Dashboard extends Component {
         </Col>
         
         <Col xs={12} sm={3}>        
-        <LoginBox />
+        {/* <LoginBox /> */}
+        <UserBox />
         {/* <Spinner /> */}
           {/* <Teachers data={teachers} /> */}
         </Col>

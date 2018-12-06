@@ -1,10 +1,6 @@
 import React, { Component } from 'react';
-//import { Route, Redirect } from 'react-router-dom';
-import { Panel, Alert, Button } from 'react-bootstrap';
+import { Panel, Button } from 'react-bootstrap';
 import { Field, reduxForm } from 'redux-form';
-import { connect } from 'react-redux';
-import { signupUser } from '../redux/actions';
-import { Spinner } from '../components/main/spinner'
 
 class SignupForm extends Component {
 
@@ -15,41 +11,12 @@ class SignupForm extends Component {
     isTeacher: false,
   }
 
-
-
-  /*  logoutUser(){
-     firebase.auth().signOut()
-   }
-
-   } 
-   */
-
-
-
-
   changeValue(field, e) {
     this.setState((state) => ({ user: { ...state.user, [field]: e.target.value } }))
   }
 
   changeUserType(e) {
     this.setState((state) => ({ user: { ...state.user, isTeacher: e.target.checked } }))
-  }
-
-  registerUser() {
-    this.props.signupUser(this.state.user)
-  }
-
-  renderErrorAlert() {
-    const { error } = this.props;
-    if (error) {
-      return (
-        <div>
-          <Alert bsStyle="danger">
-            <p>{error}</p>
-          </Alert>
-        </div>
-      );
-    }
   }
 
   renderField(field) {
@@ -91,21 +58,15 @@ class SignupForm extends Component {
   }
 
   render() {
-    const { handleSubmit, loading } = this.props;
+    const { handleSubmit } = this.props;
     const { userEmail, userPassword, isTeacher } = this.state;
-    /* if (this.state.userIsLogged) {
-      this.updateUserData()
-      return <Button onClick={() => this.logoutUser()}>Logout</Button>
-    } */
-    if (loading) {
-      return <Spinner />
-    }
+    
+    
     return (
       <Panel>
         <Panel.Heading>SIGNUP</Panel.Heading>
-        {this.renderErrorAlert()}
         <Panel.Body>
-        <form onSubmit={handleSubmit(() => this.registerUser())}>
+        <form onSubmit={handleSubmit(() => this.props.onRegisterUser(this.state.user))}>
         <Field
           label="Email"
           name="email"
@@ -132,8 +93,6 @@ class SignupForm extends Component {
           onChange={(e) => this.changeUserType(e)}
           component={this.renderCheckbox}
         />
-
-
 
         <div className="pull-right">
           <Button type="submit" bsStyle="primary">Sign up</Button>
@@ -162,13 +121,7 @@ function validate(values) {
   return errors;
 }
 
-const mapStateToProps = ({ auth }) => {
-  const { error, loading } = auth;
-  return { error, loading };
-};
-
-
 export default reduxForm({
   validate,
   form: 'signupForm'
-})(connect(mapStateToProps, { signupUser })(SignupForm));
+})(SignupForm);

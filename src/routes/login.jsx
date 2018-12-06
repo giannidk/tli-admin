@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
-//import LoginBox from '../components/widgets/login'
-import SignupForm from '../components/signup-form'
+import LoginForm from '../components/widgets/login'
 
 class UserLogin extends Component {
 
@@ -8,9 +7,7 @@ class UserLogin extends Component {
     return (
       <div className="loginOuterContainer">
         <div className="loginInnerContainer col-xs-12 col-sm-8 col-md-6 col-lg-4">
-          <SignupForm />
-          <hr />
-          {/* <LoginBox /> */}
+          <LoginForm />
         </div>
       </div>
     );

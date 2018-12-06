@@ -11,3 +11,6 @@ export const GET_LOGIN_STATE = 'get_login_state';
 export const SIGNUP_USER = 'signup_user';
 export const SIGNUP_USER_SUCCESS = 'signup_user_success';
 export const SIGNUP_USER_FAIL = 'signup_user_fail';
+
+
+export const FETCH_USER = 'fetch_user';
