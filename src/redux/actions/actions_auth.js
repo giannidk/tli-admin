@@ -21,7 +21,6 @@ export const fetchUser = () => {
   return (dispatch) => {
     auth.onAuthStateChanged((user) => {
       if (user) {
-        console.log('USER!!!!!!')
         dispatch(
           {
             type: FETCH_USER,
@@ -30,7 +29,6 @@ export const fetchUser = () => {
           );
         }
         else {
-          console.log('NOOOO :(((')
         dispatch({
           type: FETCH_USER,
           payload: null,
@@ -61,7 +59,6 @@ export const signupUser = (user) => {
                 // if user is saved in path, check for log in change and return to reducer
                 auth.onAuthStateChanged(currentUser => {
                   if (currentUser) {
-                    console.log('CURRENT USER: ', currentUser)
                     dispatch({
                       type: SIGNUP_USER_SUCCESS,
                       payload: currentUser
@@ -78,7 +75,6 @@ export const signupUser = (user) => {
             )
         },
         error => {
-          console.log(error)
           dispatch({
             type: SIGNUP_USER_FAIL,
             error: error.message
@@ -103,7 +99,6 @@ export const passwordChanged = (text) => {
 };
 
 export const loginUser = ({ email, password }, callback) => {
-  console.log(email, password)
   return (dispatch) => {
     dispatch({ type: LOGIN_USER });
     auth.signInWithEmailAndPassword(email, password)
@@ -116,7 +111,6 @@ export const loginUser = ({ email, password }, callback) => {
           callback();
         },
         error => {
-          console.log(error.message);
           dispatch({
             type: LOGIN_USER_FAIL,
             error: error.message
@@ -127,7 +121,6 @@ export const loginUser = ({ email, password }, callback) => {
 }
 
 export const logoutUser = (callback) => {
-  console.log('LOGOUT FROM ACTION');
   return (dispatch) => {
     auth.signOut();
     dispatch({

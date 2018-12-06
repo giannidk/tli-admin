@@ -34,7 +34,6 @@ export default (state = INITIAL_STATE, action) => {
     case SIGNUP_USER:
       return { ...state, loading: true };
     case SIGNUP_USER_SUCCESS:
-      console.log('USER: ', action.payload)
       toast.success('Login successful');
       return { ...state, ...INITIAL_STATE };
     case SIGNUP_USER_FAIL:
@@ -53,7 +52,6 @@ export default (state = INITIAL_STATE, action) => {
     case LOGIN_USER:
       return { ...state, loading: true, error: '' };
     case LOGIN_USER_SUCCESS:
-      console.log('USER: ', action.payload)
       toast.success('Login successful');
       return { ...state, ...INITIAL_STATE, user: action.payload };
     case LOGIN_USER_FAIL:
