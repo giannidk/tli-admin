@@ -14,7 +14,7 @@ import {
   LOGIN_USER_FAIL,
   LOGOUT_USER,
 
-} from '../constants';
+} from '../types';
 
 
 export const fetchUser = () => {

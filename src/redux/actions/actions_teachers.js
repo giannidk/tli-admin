@@ -7,7 +7,7 @@ import {
     FETCH_TEACHERS,
     FETCH_TEACHERS_SUCCESS,
     FETCH_TEACHERS_ERROR,
-} from '../constants';
+} from '../types';
 
 export function fetchTeachers() {
     return (dispatch) => {

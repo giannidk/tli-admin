@@ -14,7 +14,7 @@ import {
   GET_LOGIN_STATE,
 
   FETCH_USER,
-} from '../constants';
+} from '../types';
 
 
 const INITIAL_STATE = {

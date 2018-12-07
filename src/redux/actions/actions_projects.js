@@ -11,7 +11,7 @@ import {
 	FETCH_PROJECT_DETAILS,
 	FETCH_PROJECT_DETAILS_SUCCESS,
 	FETCH_PROJECT_DETAILS_FAIL,
-} from '../constants';
+} from '../types';
 
 export function fetchProjects() {
 	return (dispatch) => {

@@ -12,7 +12,7 @@ import {
   CLIENT_DETAILS,
   CLIENT_DETAILS_SUCCESS,
   CLIENT_DETAILS_FAIL
-} from '../constants';
+} from '../types';
 
 export function fetchClients() {
 	return (dispatch) => {
