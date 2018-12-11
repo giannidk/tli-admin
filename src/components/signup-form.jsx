@@ -1,79 +1,28 @@
 import React, { Component } from 'react';
 import { Panel, Button } from 'react-bootstrap';
 import { Field, reduxForm } from 'redux-form';
+import { renderField, renderCheckbox } from '../utils/forms'
 
 class SignupForm extends Component {
 
-  state = {
-    userEmail: '',
-    userPassword: '',
-    userColor: '',
-    isTeacher: false,
-  }
-
-  changeValue(field, e) {
-    this.setState((state) => ({ user: { ...state.user, [field]: e.target.value } }))
-  }
-
-  changeUserType(e) {
-    this.setState((state) => ({ user: { ...state.user, isTeacher: e.target.checked } }))
-  }
-
-  renderField(field) {
-    const { meta: { touched, error } } = field;
-    const className = `form-group ${touched && error ? 'has-error' : ''}`;
-    return (
-      <div className={className}>
-        <label>{field.label}</label>
-        <input
-          type={field.type || 'text'}
-          className="form-control"
-          placeholder={field.placeholder}
-          ref={field.ref}
-          {...field.input}
-        />
-        <p className="control-label">{touched ? error : ''}</p>
-      </div>
-    );
-  }
-
-  renderCheckbox(field) {
-    const { meta: { touched, error } } = field;
-    const className = `form-group ${touched && error ? 'has-error' : ''}`;
-    return (
-      <div className={className}>
-      <input
-        type={field.type || 'text'}
-        id={field.id}
-        className="form-control"
-        placeholder={field.placeholder}
-        ref={field.ref}
-        {...field.input}
-        style={{'display':'inline-block', 'width': '26px', 'height': 'auto'}}
-      />
-      <label htmlFor={field.id} style={{'display':'inline-block'}}>{field.label}</label>
-      <p className="control-label">{touched ? error : ''}</p>
-    </div>
-    );
-  }
-
   render() {
-    const { handleSubmit } = this.props;
-    const { userEmail, userPassword, isTeacher } = this.state;
+    const { handleSubmit, handleChange, handleUserTypeChange } = this.props;
+    const { userEmail, userPassword, isTeacher } = this.props.user;
     
     
     return (
       <Panel>
         <Panel.Heading>SIGNUP</Panel.Heading>
         <Panel.Body>
-        <form onSubmit={handleSubmit(() => this.props.onRegisterUser(this.state.user))}>
+        <form onSubmit={handleSubmit(() => this.props.onRegisterUser(this.props.user))}>
         <Field
           label="Email"
           name="email"
           placeholder="email"
           value={userEmail}
-          onChange={(e) => this.changeValue('email', e)}
-          component={this.renderField}
+         // onChange={(e) => this.changeValue('email', e)}
+          onChange={(e) => handleChange('userEmail', e)}
+          component={renderField}
         />
         <Field
           label="Password"
@@ -81,8 +30,9 @@ class SignupForm extends Component {
           placeholder="password"
           type="password"
           value={userPassword}
-          onChange={(e) => this.changeValue('password', e)}
-          component={this.renderField}
+         // onChange={(e) => this.changeValue('password', e)}
+          onChange={(e) => handleChange('userPassword', e)}
+          component={renderField}
         />
         <Field
           label="I am a teacher"
@@ -90,8 +40,8 @@ class SignupForm extends Component {
           id="isTeacher"
           type="checkbox"
           value={isTeacher}
-          onChange={(e) => this.changeUserType(e)}
-          component={this.renderCheckbox}
+          onChange={(e) => handleUserTypeChange(e)}
+          component={renderCheckbox}
         />
 
         <div className="pull-right">
