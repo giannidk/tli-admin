@@ -7,7 +7,7 @@ import {
     FETCH_REGISTRATIONS_DETAILS_FAIL,
     REGISTRATIONS_ADD,
     REGISTRATION_DELETE
-} from '../constants';
+} from '../types';
 
 const INITIAL_STATE = {
     registrations: {},    

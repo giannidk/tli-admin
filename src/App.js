@@ -39,7 +39,6 @@ class App extends Component {
     this.props.fetchUser();
   }
   render() {
-
     return (
         <BrowserRouter>
           <div className="app">
@@ -53,7 +52,6 @@ class App extends Component {
                 <Route path="/teachers/:key" component={TeacherDetails} />
                 <Route path="/teachers" component={Teachers} />
                 <Route path="/students" component={requireAuth(Students)} />
-
                 <Route path="/clients/add" component={ClientsAdd} />
                 <Route path="/clients/:key" component={ClientsDetails} />
                 <Route path="/clients" component={ClientsList} />
@@ -67,7 +65,6 @@ class App extends Component {
                 <Route path="/registrations" component={RegistrationsList} />
                 <Route path="/invoices/:invoiceKey" component={InvoiceDetails} />
                 <Route path="/invoices" component={InvoicesList} />
-
                 <Route path="/" component={Home} />
               </Switch>
             </Grid>

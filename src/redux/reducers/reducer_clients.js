@@ -7,7 +7,7 @@ import {
     CLIENT_DETAILS,
     CLIENT_DETAILS_SUCCESS,
     CLIENT_DETAILS_FAIL
-} from '../constants';
+} from '../types';
 
 const INITIAL_STATE = {
     clients: {},

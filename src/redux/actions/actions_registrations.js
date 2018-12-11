@@ -15,7 +15,7 @@ import {
     FETCH_REGISTRATIONS_DETAILS_FAIL,
     REGISTRATIONS_ADD,
     REGISTRATION_DELETE
-} from '../constants';
+} from '../types';
 
  export function fetchRegistrations() {
    let registrations = {};

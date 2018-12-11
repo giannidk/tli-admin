@@ -8,7 +8,7 @@ import {
     //CALENDAR_ENTRY_ADD,
     CALENDAR_ENTRY_ADD_SUCCESS,
     CALENDAR_ENTRY_ADD_ERROR,
-} from '../constants';
+} from '../types';
 
 export function addQuickbookEntry(values) {
 	return (dispatch) => {

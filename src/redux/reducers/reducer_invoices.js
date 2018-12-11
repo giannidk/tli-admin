@@ -6,7 +6,7 @@ import {
   FETCH_INVOICES_DETAILS,
   FETCH_INVOICES_DETAILS_SUCCESS,
   FETCH_INVOICES_DETAILS_FAIL
-} from '../constants';
+} from '../types';
 
 const INITIAL_STATE = {
     invoices: {},
