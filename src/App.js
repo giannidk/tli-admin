@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { BrowserRouter, Switch, Route } from "react-router-dom";
+import { withLocalize } from 'react-localize-redux';
 import { connect } from "react-redux";
 import { fetchUser } from "./redux/actions";
 import { Grid } from 'react-bootstrap'
@@ -32,8 +33,23 @@ import ProjectsDetails from './routes/freelance/projects_details';
 import ProjectsInvoice from './routes/freelance/projects_invoice';
 import InvoicesList from './routes/freelance/invoices_list';
 import InvoiceDetails from './routes/freelance/invoices_details';
+import globalTranslations from "./translations/global.json";
+import { renderToStaticMarkup } from "react-dom/server";
 
 class App extends Component {
+
+  constructor(props) {
+    super(props);
+
+    this.props.initialize({
+      languages: [
+        { name: "English", code: "en" },
+        { name: "French", code: "fr" }
+      ],
+      translation: globalTranslations,
+      options: { renderToStaticMarkup }
+    });
+  }
   
   componentWillMount() {
     this.props.fetchUser();
@@ -75,4 +91,4 @@ class App extends Component {
   }
 }
 
-export default connect(null, { fetchUser })(App);
+export default withLocalize(connect(null, { fetchUser })(App));

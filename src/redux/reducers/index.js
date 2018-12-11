@@ -1,5 +1,6 @@
 import { combineReducers } from 'redux';
 import { reducer as formReducer } from 'redux-form';
+import { localizeReducer } from "react-localize-redux";
 import ClientsReducer from './reducer_clients';
 import ProjectsReducer from './reducer_projects';
 import InvoicesReducer from './reducer_invoices';
@@ -19,6 +20,7 @@ const rootReducer = combineReducers({
         "dateFormat": "DD-MM-YYYY" 
       }
     },
+    localize: localizeReducer,
     clients: ClientsReducer,
     projects: ProjectsReducer,
     registrations: RegistrationsReducer,
