@@ -44,10 +44,14 @@ class App extends Component {
     this.props.initialize({
       languages: [
         { name: "English", code: "en" },
-        { name: "French", code: "fr" }
+        { name: "Italian", code: "it" }
       ],
       translation: globalTranslations,
-      options: { renderToStaticMarkup }
+      options: { 
+        renderToStaticMarkup,
+        renderInnerHtml: true,
+        defaultLanguage: "en"
+      }
     });
   }
   

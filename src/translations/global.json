@@ -1,12 +1,10 @@
 {
     "title": [
       "My Article title",
-      "My Article title FR",
-      "My Article title ES"
+      "Il mio titolo IT"
     ],
     "greeting": [
-      null,
-      "Bonjour ${name}!",
-      "Hola ${name}!"
+      "Hello ${name}!",
+      "Ciao ${name}!"
     ]
   }

@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component, Fragment } from 'react'
 import {
   Row,
   Col,
@@ -12,11 +12,33 @@ import {
   upcomingDates,
 } from '../constants'
 
+import { withLocalize, Translate } from 'react-localize-redux';
+
 
 class Dashboard extends Component {
 
+  constructor(props) {
+    super(props);    
+    this.addTranslationsForActiveLanguage();
+  }
+
+  addTranslationsForActiveLanguage() {
+    const {activeLanguage} = this.props;
+    if (!activeLanguage) {
+      return;
+    }
+    import(`../translations/${activeLanguage.code}`) 
+      .then(translations => {
+        this.props.addTranslationForLanguage(translations, activeLanguage.code)
+      });
+  }
+
   render() {
     return (
+      <Fragment>
+        <Row>
+        <h2><Translate id="greeting" data={{ name: 'CICCIO' }}>{"Hello ${name}"}</Translate></h2>
+      </Row>
       <Row>
         <Col xs={12} sm={6}>
           <QuickBook />
@@ -31,8 +53,10 @@ class Dashboard extends Component {
         </Col>
 
       </Row>
+      </Fragment>
     )
   }
 }
 
-export default Dashboard
+//export default Dashboard
+export default withLocalize(Dashboard);
