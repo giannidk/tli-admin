@@ -2,7 +2,7 @@ import firebase from 'firebase';
 import React, { Component } from 'react';
 import { Panel, Button } from 'react-bootstrap';
 import { connect } from 'react-redux';
-import { fetchUser, logoutUser } from '../../redux/actions';
+import { fetchUser, logoutUser } from '../../store/actions';
 import { Spinner } from '../main'
 
 class UserBox extends Component {

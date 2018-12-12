@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router-dom'
 import SignupForm from '../components/signup-form'
 import { connect } from 'react-redux';
-import { signupUser } from '../redux/actions';
+import { signupUser } from '../store/actions';
 import { Spinner } from '../components/main/spinner'
 
 class Signup extends Component {

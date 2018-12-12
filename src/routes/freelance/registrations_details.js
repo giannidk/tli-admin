@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { PageHeader, Alert, Table, Label } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { registrationDetails, registrationDelete } from '../../redux/actions';
+import { registrationDetails, registrationDelete } from '../../store/actions';
 import { Spinner } from '../../components/main';
 
 class RegistrationsDetails extends Component {

@@ -5,7 +5,7 @@ import DatePicker from 'react-16-bootstrap-date-picker';
 import { Field, reduxForm } from 'redux-form';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
-import { fetchProjects, addRegistration } from '../../redux/actions';
+import { fetchProjects, addRegistration } from '../../store/actions';
 import { Spinner } from '../../components/main';
 
 class RegistrationsAdd extends Component {    

@@ -6,7 +6,7 @@ import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
 import { LocalizeProvider } from "react-localize-redux";
 import { PersistGate } from 'redux-persist/integration/react';
-import configureStore from './app/config/store';
+import configureStore from './store';
 import App from './App';
 import { Spinner } from './components/main/spinner'
 import * as serviceWorker from './serviceWorker';

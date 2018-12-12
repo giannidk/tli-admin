@@ -6,7 +6,7 @@ import {
 } from 'react-bootstrap'
 import DatePicker from 'react-16-bootstrap-date-picker';
 import { Field, reduxForm } from 'redux-form';
-import { addQuickbookEntry, fetchTeachers } from '../../redux/actions';
+import { addQuickbookEntry, fetchTeachers } from '../../store/actions';
 import { Spinner } from '../main';
 
 const pickerTimeSlots = ['00:00', '00:30', '01:00', '01:30', '02:00', '02:30', '03:00', '03:30', '04:00', '04:30', '05:00', '05:30',

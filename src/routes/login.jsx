@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { Redirect } from 'react-router-dom'
 import LoginForm from '../components/widgets/login'
 import { connect } from 'react-redux'
-import { loginUser } from '../redux/actions'
+import { loginUser } from '../store/actions'
 import { Spinner } from '../components/main/spinner'
 
 class UserLogin extends Component {

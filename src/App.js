@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { BrowserRouter, Switch, Route } from "react-router-dom";
 import { withLocalize } from 'react-localize-redux';
 import { connect } from "react-redux";
-import { fetchUser } from "./redux/actions";
+import { fetchUser } from "./store/actions";
 import { Grid } from 'react-bootstrap'
 import { ToastContainer } from 'react-toastify';
 import './scss/app.scss';
