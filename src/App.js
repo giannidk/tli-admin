@@ -45,6 +45,7 @@ class App extends Component {
   componentWillMount() {
     this.props.fetchUser();
   }
+
   render() {
     return (
         <BrowserRouter>
