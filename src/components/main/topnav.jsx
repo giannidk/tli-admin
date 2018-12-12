@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap'
+import { Navbar, Nav, NavItem } from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap'
 import LanguageToggle from './language-toggle'
 
@@ -38,21 +38,6 @@ class TopNav extends Component {
             <LinkContainer to="/login-auth">
               <NavItem eventKey={1}>Login AUTH</NavItem>
             </LinkContainer>
-
-          <NavDropdown eventKey={4} title="FREELANCE" id="admin-nav-dropdown">
-            <LinkContainer to="/clients">
-              <MenuItem>Clients</MenuItem>
-            </LinkContainer>
-            <LinkContainer to="/projects">
-              <MenuItem>Projects</MenuItem>
-            </LinkContainer>
-            <LinkContainer to="/registrations">
-              <MenuItem>Registrations</MenuItem>
-            </LinkContainer>
-            <LinkContainer to="/invoices">
-              <MenuItem>Invoices</MenuItem>
-            </LinkContainer>
-          </NavDropdown>
 
           <LanguageToggle />
         </Nav>

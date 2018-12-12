@@ -3,14 +3,8 @@ import {
   Row,
   Col,
 } from 'react-bootstrap'
-import { 
-  UpcomingClasses,
-} from '../components/widgets'
 import QuickBook from '../components/widgets/quick-book'
 import UserBox from '../components/widgets/user-box'
-import {
-  upcomingDates,
-} from '../constants'
 
 import { withLocalize, Translate } from 'react-localize-redux';
 
@@ -27,7 +21,7 @@ class Dashboard extends Component {
     if (!activeLanguage) {
       return;
     }
-    import(`../translations/${activeLanguage.code}`) 
+    import(`../translations/${activeLanguage.code}/dashboard.json`) 
       .then(translations => {
         this.props.addTranslationForLanguage(translations, activeLanguage.code)
       });
@@ -43,12 +37,7 @@ class Dashboard extends Component {
         <Col xs={12} sm={6}>
           <QuickBook />
         </Col>
-
-        <Col xs={12} sm={3}>
-        <UpcomingClasses data={upcomingDates} />
-        </Col>
-        
-        <Col xs={12} sm={3}>        
+        <Col xs={12} sm={6}>        
         <UserBox />
         </Col>
 

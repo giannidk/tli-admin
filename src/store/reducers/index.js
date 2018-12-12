@@ -1,10 +1,6 @@
 import { combineReducers } from 'redux';
 import { reducer as formReducer } from 'redux-form';
 import { localizeReducer } from "react-localize-redux";
-import ClientsReducer from './reducer_clients';
-import ProjectsReducer from './reducer_projects';
-import InvoicesReducer from './reducer_invoices';
-import RegistrationsReducer from './reducer_registrations';
 import CalendarReducer from './reducer_calendar';
 import TeachersReducer from './reducer_teachers';
 import AuthReducer from './reducer_auth';
@@ -21,10 +17,6 @@ const rootReducer = combineReducers({
       }
     },
     localize: localizeReducer,
-    clients: ClientsReducer,
-    projects: ProjectsReducer,
-    registrations: RegistrationsReducer,
-    invoices: InvoicesReducer,
     calendar: CalendarReducer,
     teachers: TeachersReducer,
     auth: AuthReducer,
