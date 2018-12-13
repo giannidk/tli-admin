@@ -27,7 +27,7 @@ class App extends Component {
 
   constructor(props) {
     super(props);
-
+    
     this.props.initialize({
       languages: [
         { name: "English", code: "en" },
@@ -42,8 +42,10 @@ class App extends Component {
     });
   }
   
-  componentWillMount() {
+  componentDidMount() {
     this.props.fetchUser();
+    const activeLanguage = localStorage.getItem('language')
+    activeLanguage && this.props.setActiveLanguage(localStorage.getItem('language'))
   }
 
   render() {
