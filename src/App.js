@@ -1,15 +1,15 @@
-import React, { Component } from 'react';
-import { BrowserRouter, Switch, Route } from "react-router-dom";
-import { withLocalize } from 'react-localize-redux';
-import { connect } from "react-redux";
-import { fetchUser } from "./store/actions";
+import React, { Component } from 'react'
+import { BrowserRouter, Switch, Route } from "react-router-dom"
+import { withLocalize } from 'react-localize-redux'
+import { connect } from "react-redux"
+import { fetchUser } from "./store/actions"
 import { Grid } from 'react-bootstrap'
-import { ToastContainer } from 'react-toastify';
-import './scss/app.scss';
-import './scss/spinner.scss';
-import './scss/toastify/main.scss';
+import { ToastContainer } from 'react-toastify'
+import './scss/app.scss'
+import './scss/spinner.scss'
+import './scss/toastify/main.scss'
 
-import requireAuth from "./components/hoc/require-auth";
+import requireAuth from "./components/hoc/require-auth"
 import TopNav from './components/main/topnav'
 import Login from './routes/login'
 import Signup from './routes/signup'
@@ -20,14 +20,14 @@ import Teachers from './routes/teachers'
 import TeacherDetails from './routes/teacher-details'
 import Students from './routes/students'
 
-import globalTranslations from "./translations/global.json";
-import { renderToStaticMarkup } from "react-dom/server";
+import globalTranslations from "./translations/global.json"
+import { renderToStaticMarkup } from "react-dom/server"
 
 class App extends Component {
 
   constructor(props) {
-    super(props);
-    
+    super(props)
+
     this.props.initialize({
       languages: [
         { name: "English", code: "en" },
@@ -39,11 +39,11 @@ class App extends Component {
         renderInnerHtml: true,
         defaultLanguage: "en"
       }
-    });
+    })
   }
   
   componentDidMount() {
-    this.props.fetchUser();
+    this.props.fetchUser()
     const activeLanguage = localStorage.getItem('language')
     activeLanguage && this.props.setActiveLanguage(localStorage.getItem('language'))
   }
@@ -68,8 +68,8 @@ class App extends Component {
             <ToastContainer />
           </div>
         </BrowserRouter>
-    );
+    )
   }
 }
 
-export default withLocalize(connect(null, { fetchUser })(App));
+export default withLocalize(connect(null, { fetchUser })(App))

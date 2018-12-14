@@ -6,25 +6,25 @@ import {
 import QuickBook from '../components/widgets/quick-book'
 import UserBox from '../components/widgets/user-box'
 
-import { withLocalize, Translate } from 'react-localize-redux';
+import { withLocalize, Translate } from 'react-localize-redux'
 
 
 class Dashboard extends Component {
 
   constructor(props) {
-    super(props);    
-    this.addTranslationsForActiveLanguage();
+    super(props)  
+    this.addTranslationsForActiveLanguage()
   }
 
   addTranslationsForActiveLanguage() {
-    const {activeLanguage} = this.props;
+    const {activeLanguage} = this.props
     if (!activeLanguage) {
-      return;
+      return
     }
     import(`../translations/${activeLanguage.code}/dashboard.json`) 
       .then(translations => {
         this.props.addTranslationForLanguage(translations, activeLanguage.code)
-      });
+      })
   }
 
   render() {
@@ -48,4 +48,4 @@ class Dashboard extends Component {
 }
 
 //export default Dashboard
-export default withLocalize(Dashboard);
+export default withLocalize(Dashboard)

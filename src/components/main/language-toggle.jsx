@@ -1,6 +1,6 @@
-import React from "react";
+import React from "react"
 import { NavDropdown, MenuItem } from 'react-bootstrap'
-import { withLocalize } from "react-localize-redux";
+import { withLocalize } from "react-localize-redux"
 import * as localization from '../../utils/localization'
 
 const LanguageToggle = ({ languages, activeLanguage, setActiveLanguage }) => (
@@ -11,6 +11,6 @@ const LanguageToggle = ({ languages, activeLanguage, setActiveLanguage }) => (
 			</MenuItem>
 		))}
 	</NavDropdown>
-);
+)
 
-export default withLocalize(LanguageToggle);
+export default withLocalize(LanguageToggle)
