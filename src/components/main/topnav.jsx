@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
-import { Navbar, Nav, NavItem, NavDropdown, MenuItem } from 'react-bootstrap'
+import { Navbar, Nav, NavItem } from 'react-bootstrap'
 import { LinkContainer } from 'react-router-bootstrap'
+import LanguageToggle from './language-toggle'
 
 class TopNav extends Component {
   
@@ -38,51 +39,7 @@ class TopNav extends Component {
               <NavItem eventKey={1}>Login AUTH</NavItem>
             </LinkContainer>
 
-          <NavDropdown eventKey={2} title="Student" id="admin-nav-dropdown">
-
-            <LinkContainer to="/teachers">
-              <MenuItem eventKey={2.1}>My teachers</MenuItem>
-            </LinkContainer>
-            <LinkContainer to="/calendar">
-              <MenuItem eventKey={2.2}>Calendar</MenuItem>
-            </LinkContainer>
-            <LinkContainer to="/book">
-              <MenuItem eventKey={2.3}>Book a lesson</MenuItem>
-            </LinkContainer>
-            <MenuItem divider />
-            <LinkContainer to="/settings">
-              <MenuItem eventKey={2.4}>Settings</MenuItem>
-            </LinkContainer>
-            <LinkContainer to="/logout">
-              <MenuItem eventKey={2.5}>Logout</MenuItem>
-            </LinkContainer>
-
-          </NavDropdown>
-          <NavDropdown eventKey={3} title="Teacher" id="admin-nav-dropdown">
-            <MenuItem eventKey={3.1}>My students</MenuItem>
-            <MenuItem eventKey={3.2}>Calendar</MenuItem>
-            <MenuItem divider />
-            <MenuItem eventKey={3.3}>Settings</MenuItem>
-            <MenuItem eventKey={3.4}>Logout</MenuItem>
-          </NavDropdown>
-
-          <NavDropdown eventKey={4} title="FREELANCE" id="admin-nav-dropdown">
-            <LinkContainer to="/clients">
-              <MenuItem>Clients</MenuItem>
-            </LinkContainer>
-
-            <LinkContainer to="/projects">
-              <MenuItem>Projects</MenuItem>
-            </LinkContainer>
-
-            <LinkContainer to="/registrations">
-              <MenuItem>Registrations</MenuItem>
-            </LinkContainer>
-
-            <LinkContainer to="/invoices">
-              <MenuItem>Invoices</MenuItem>
-            </LinkContainer>
-          </NavDropdown>
+          <LanguageToggle />
         </Nav>
       </Navbar.Collapse>
     </Navbar>)

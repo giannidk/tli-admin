@@ -1,7 +1,7 @@
 import React, { Component, Fragment } from 'react'
 import { connect } from 'react-redux';
 import { Row, Col, ListGroup, ListGroupItem, Alert } from 'react-bootstrap'
-import { fetchTeachers } from '../redux/actions';
+import { fetchTeachers } from '../store/actions';
 import { Spinner } from '../components/main';
 import { Card, ViewTypeSwitch } from '../components'
 import { viewTypes } from '../constants/'

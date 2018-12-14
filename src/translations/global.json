@@ -1,0 +1,10 @@
+{
+    "title": [
+      "My Article title",
+      "Il mio titolo IT"
+    ],
+    "greeting": [
+      "Hello ${name}!",
+      "Ciao ${name}!"
+    ]
+  }

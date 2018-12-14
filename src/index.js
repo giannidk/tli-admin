@@ -4,19 +4,22 @@ import './css/vendor/bootstrap-theme.min.css';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
+import { LocalizeProvider } from "react-localize-redux";
 import { PersistGate } from 'redux-persist/integration/react';
-import configureStore from './app/config/store';
+import configureStore from './store';
 import App from './App';
-import { Spinner } from './components/main/spinner' 
+import { Spinner } from './components/main/spinner'
 import * as serviceWorker from './serviceWorker';
 
 const { persistor, store } = configureStore();
 
 ReactDOM.render(
     <Provider store={store}>
-        <PersistGate loading={<Spinner />} persistor={persistor}>
-            <App />
-        </PersistGate>
+        <LocalizeProvider store={store}>
+            <PersistGate loading={<Spinner />} persistor={persistor}>
+                <App />
+            </PersistGate>
+        </LocalizeProvider>
     </Provider>,
     document.getElementById('root'));
 

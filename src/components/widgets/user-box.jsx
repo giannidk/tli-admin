@@ -1,9 +1,7 @@
-import firebase from 'firebase';
 import React, { Component } from 'react';
 import { Panel, Button } from 'react-bootstrap';
 import { connect } from 'react-redux';
-import { fetchUser, logoutUser } from '../../redux/actions';
-import { Spinner } from '../main'
+import { fetchUser, logoutUser } from '../../store/actions';
 
 class UserBox extends Component {
 
@@ -19,17 +17,8 @@ class UserBox extends Component {
     this.setState({user: this.props.user})
   }
 
-  logoutUser() {
-    firebase.auth().signOut()
-  }
-
-
-
   render() {
     const { user } = this.state
-    if (this.state.loading) {
-      return <Spinner />
-    }
     return (
       <Panel>
         <Panel.Heading>USER BOX</Panel.Heading>
@@ -45,8 +34,6 @@ class UserBox extends Component {
   }
 }
 
-
-
 const mapStateToProps = ({ auth }) => {
   const { 
     //error, 
@@ -56,9 +43,8 @@ const mapStateToProps = ({ auth }) => {
   return { 
     //error, 
     //loading, 
-    user 
+    user
   };
 };
-
 
 export default connect(mapStateToProps, { fetchUser, logoutUser })(UserBox)

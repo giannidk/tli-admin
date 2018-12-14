@@ -19,9 +19,7 @@ const INITIAL_STATE = {
 
 
 export default (state = INITIAL_STATE, action) => {
-  console.log('STORE STATE: ', state)
   switch (action.type) {
-
     case SIGNUP_USER:
       return { ...state, loading: true };
     case SIGNUP_USER_SUCCESS:
