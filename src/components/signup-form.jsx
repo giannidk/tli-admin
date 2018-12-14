@@ -7,7 +7,7 @@ class SignupForm extends Component {
 
   render() {
     const { handleSubmit, handleChange, handleUserTypeChange } = this.props;
-    const { userEmail, userPassword, isTeacher } = this.props.user;
+    const { userEmail, userPassword, userDisplayName, isTeacher } = this.props.user;
     
     
     return (
@@ -20,7 +20,6 @@ class SignupForm extends Component {
           name="email"
           placeholder="email"
           value={userEmail}
-         // onChange={(e) => this.changeValue('email', e)}
           onChange={(e) => handleChange('userEmail', e)}
           component={renderField}
         />
@@ -30,8 +29,15 @@ class SignupForm extends Component {
           placeholder="password"
           type="password"
           value={userPassword}
-         // onChange={(e) => this.changeValue('password', e)}
           onChange={(e) => handleChange('userPassword', e)}
+          component={renderField}
+        />
+        <Field
+          label="Display name"
+          name="displayname"
+          placeholder="Display Name"
+          value={userDisplayName}
+          onChange={(e) => handleChange('userDisplayName', e)}
           component={renderField}
         />
         <Field

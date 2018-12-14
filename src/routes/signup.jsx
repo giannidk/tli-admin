@@ -13,6 +13,7 @@ class Signup extends Component {
       user: {
         userEmail: '',
         userPassword: '',
+        userDisplayName: '',
       },
     }
   }
@@ -20,12 +21,14 @@ class Signup extends Component {
   handleChange(field, e) {
     this.setState((state) => ({ user: { ...state.user, [field]: e.target.value } }))
   }
-  
+
   handleChangeUserType(e) {
     this.setState((state) => ({ user: { ...state.user, isTeacher: e.target.checked } }))
   }
 
   render() {
+    console.log('PROPS: ', this.props)
+    //debugger
     const { loading, user } = this.props
     if (loading) {
       return <Spinner />
