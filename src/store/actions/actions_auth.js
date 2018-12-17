@@ -11,6 +11,58 @@ import {
 } from '../types'
 
 
+/* export const signupUser = (newUserData) => {
+  const { userEmail, userPassword, userDisplayName, userIsTeacher } = newUserData
+  return (dispatch) => {
+    dispatch({
+      type: SIGNUP_USER,
+    })
+    auth.createUserWithEmailAndPassword(userEmail, userPassword)
+      .then(
+        success => {
+          auth.onAuthStateChanged((user) => {
+            if (user) {
+              // Update user Profile
+              user.updateProfile({
+                displayName: userDisplayName,
+              }).then(success => {
+                // Update successful.
+                console.log('Update success ...')
+                // send verification email
+                user.sendEmailVerification()
+                .then(success => {
+                  // Send Email success.
+                  console.log('Email success ...')
+                  signupUserSuccess(dispatch, user);
+                }).catch(error => {
+                  // Send Email error.
+                  console.log('Email error ...')
+                  signupUserFail(dispatch, error.message);
+                });
+              }).catch(error => {
+                // Update error.
+                console.log('Update error ...')
+                signupUserFail(dispatch, error.message);
+              });
+              
+            }
+            else {
+              console.log('NO USER ...')
+              // ..... NO USER
+            }
+
+          })
+
+        },
+        // User creation error
+        error => {
+          signupUserFail(dispatch, error.message);
+        }
+      )
+  }
+} */
+
+
 export const signupUser = (user) => {
   const { userEmail, userPassword, displayName, isTeacher } = user
   return (dispatch) => {
@@ -30,35 +82,22 @@ export const signupUser = (user) => {
                 .set({ isTeacher: isTeacher || false })
                 .then(
                   () => {
-                    dispatch({
-                      type: SIGNUP_USER_SUCCESS,
-                      payload: success.user
-                    })
+                    signupUserSuccess(dispatch, user)
                   },
                   error => {
-                    dispatch({
-                      type: SIGNUP_USER_FAIL,
-                      error: error.message
-                    })
+                    // USER UPDATE ERROR
+                    signupUserFail(dispatch, error.message);
                   }
                 )
             })
             .catch(error => {
-              // An error happened.
-              dispatch({
-                type: SIGNUP_USER_FAIL,
-                error: error.message
-              })
+              // SEND EMAIL ERROR
+              signupUserFail(dispatch, error.message);
             })
-
-
-
         },
         error => {
-          dispatch({
-            type: SIGNUP_USER_FAIL,
-            error: error.message
-          })
+          // CREATE USER ERROR
+          signupUserFail(dispatch, error.message);
         }
       )
   }
@@ -115,3 +154,26 @@ export const logoutUser = () => {
     })
   }
 }
+
+
+const signupUserSuccess = (dispatch, user) => {
+  console.log('**************************')
+  console.log(dispatch, user)
+  console.log('**************************')
+  dispatch({
+    type: SIGNUP_USER_SUCCESS,
+    payload: user
+  })
+};
+
+const signupUserFail = (dispatch, error) => {
+  console.log('**************************')
+  console.log(dispatch, error)
+  console.log('**************************')
+  //dispatch(reset('signupForm', 'userEmail'), { 
+  //dispatch(change('signupForm', 'userPassword', ''), { 
+  dispatch({
+    type: SIGNUP_USER_FAIL,
+    error: error
+  })
+};
