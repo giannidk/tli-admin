@@ -43,17 +43,18 @@ export const signupUser = (user, callbackFunction) => {
 
                   // Send Activation Email
                   currentUser.sendEmailVerification()
-                    .then(() => signupUserSuccess(dispatch, currentUser))
+                    .then(() => { return })
                     .catch(activationMailSendingError => signupUserFail(dispatch, activationMailSendingError.message))
                 },
                 userTableWritingError => signupUserFail(dispatch, userTableWritingError.message)
               )
+                signupUserSuccess(dispatch, currentUser)
+                callbackFunction()
           })
           .catch(userUpdateError => signupUserFail(dispatch, userUpdateError.message))
       },
         userCreateError => signupUserFail(dispatch, userCreateError.message)
       )
-      callbackFunction()
   }
 }
 

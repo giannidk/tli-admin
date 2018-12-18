@@ -14,7 +14,7 @@ class SignupForm extends Component {
       <Panel>
         <Panel.Heading>SIGNUP</Panel.Heading>
         <Panel.Body>
-        <form onSubmit={handleSubmit(() => this.props.onRegisterUser(this.props.user))}>
+        <form onSubmit={handleSubmit(() => this.props.onRegisterUser(this.props.user))} autoComplete="nope">
         <Field
           label="Email"
           name="email"
@@ -64,13 +64,17 @@ class SignupForm extends Component {
 function validate(values) {
   const errors = {};
   // Validate inputs
-  if (!values.password) {
-    errors.password = "Password is required!";
-  }
+  
   if (!values.email) {
     errors.email = "Enter you email address!";
   } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
     errors.email = 'Invalid email address'
+  }
+  if (!values.password) {
+    errors.password = "Password is required!";
+  }
+  if (!values.displayname) {
+    errors.displayname = "Display name is required!";
   }
   // if errors is empty, the form is valid and can be submitted
   // if errors has any properties, the form is invalid
@@ -79,5 +83,5 @@ function validate(values) {
 
 export default reduxForm({
   validate,
-  form: 'signupForm'
+  form: 'signupForm',
 })(SignupForm);

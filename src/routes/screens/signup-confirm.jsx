@@ -9,7 +9,7 @@ const SignupConfirm = ({ newUser }) => {
 			<Col sm={12}>
 				<Panel>
 					<Panel.Body>
-						<h1>You are now registered</h1>
+						<h1>You are now registered ...</h1>
 						<p>NEW USER: {newUser.displayName}, {newUser.email}</p>
 					</Panel.Body>
 				</Panel>
