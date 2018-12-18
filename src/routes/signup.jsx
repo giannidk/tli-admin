@@ -26,12 +26,20 @@ class Signup extends Component {
     this.setState((state) => ({ user: { ...state.user, userIsTeacher: e.target.checked } }))
   }
 
+  handleUserRegistration(user) {
+    this.props.signupUser(user, () => {
+      this.setState({userCreated: true})
+    })
+  }
+
   render() {
     console.log('PROPS: ', this.props)
-    //debugger
     const { loading, user } = this.props
     if (loading) {
       return <Spinner />
+    }
+    if (this.state.userCreated && user) {
+      return <p>NEW USER: {user.displayName}, {user.email}</p>
     }
     return (
       <div className="loginOuterContainer">
@@ -45,7 +53,7 @@ class Signup extends Component {
               user={this.state.user}
               handleChange={(name, value) => this.handleChange(name, value)}
               handleUserTypeChange={(e) => this.handleChangeUserType(e)}
-              onRegisterUser={(user) => this.props.signupUser(user)}
+              onRegisterUser={(user) => this.handleUserRegistration(user)}
             />
           }
         </div>
