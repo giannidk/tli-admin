@@ -23,7 +23,7 @@ class Signup extends Component {
   }
 
   handleChangeUserType(e) {
-    this.setState((state) => ({ user: { ...state.user, isTeacher: e.target.checked } }))
+    this.setState((state) => ({ user: { ...state.user, userIsTeacher: e.target.checked } }))
   }
 
   render() {

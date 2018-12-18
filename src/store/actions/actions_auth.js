@@ -1,4 +1,4 @@
-import { database, auth, usersRoot } from '../../app/config'
+import { database, auth, usersRoot, teachersRoot } from '../../app/config'
 import {
   SIGNUP_USER,
   SIGNUP_USER_SUCCESS,
@@ -11,93 +11,66 @@ import {
 } from '../types'
 
 
-/* export const signupUser = (newUserData) => {
-  const { userEmail, userPassword, userDisplayName, userIsTeacher } = newUserData
-  return (dispatch) => {
-    dispatch({
-      type: SIGNUP_USER,
-    })
-    auth.createUserWithEmailAndPassword(userEmail, userPassword)
-      .then(
-        success => {
-          auth.onAuthStateChanged((user) => {
-            if (user) {
-              // Update user Profile
-              user.updateProfile({
-                displayName: userDisplayName,
-              }).then(success => {
-                // Update successful.
-                console.log('Update success ...')
-                // send verification email
-                user.sendEmailVerification()
-                .then(success => {
-                  // Send Email success.
-                  console.log('Email success ...')
-                  signupUserSuccess(dispatch, user);
-                }).catch(error => {
-                  // Send Email error.
-                  console.log('Email error ...')
-                  signupUserFail(dispatch, error.message);
-                });
-              }).catch(error => {
-                // Update error.
-                console.log('Update error ...')
-                signupUserFail(dispatch, error.message);
-              });
-              
-            }
-            else {
-              console.log('NO USER ...')
-              // ..... NO USER
-            }
-
-          })
-
-        },
-        // User creation error
-        error => {
-          signupUserFail(dispatch, error.message);
-        }
-      )
-  }
-} */
-
-
 export const signupUser = (user) => {
-  const { userEmail, userPassword, displayName, isTeacher } = user
+  const { userEmail, userPassword, userDisplayName, userIsTeacher } = user
   return (dispatch) => {
     dispatch({
       type: SIGNUP_USER,
     })
     auth.createUserWithEmailAndPassword(userEmail, userPassword)
       .then(
-        success => {
-          const user = auth.currentUser
-          user.sendEmailVerification()
+        () => {
+          // THE USER IS CREATED
+          const { currentUser } = auth
+          currentUser.updateProfile({
+            displayName: userDisplayName,
+          })
             .then(() => {
-              // the user is created and the activation email is sent.
-              // insert user in users path
-              const newUserRoot = `${usersRoot}/${success.user.uid}`
+              // USER UPDATED SUCCESSFULLY 
+              const newUserRoot = `${usersRoot}/${currentUser.uid}`
+              const newTeacherRoot = `${teachersRoot}/TEST/${currentUser.uid}`
               database.ref(newUserRoot)
-                .set({ isTeacher: isTeacher || false })
+                .set({ isTeacher: userIsTeacher || false })
                 .then(
                   () => {
-                    signupUserSuccess(dispatch, user)
+                    // USER SET IN USER TABLE 
+                    // Save if teacher ------------------------------------
+                    if (userIsTeacher) {
+                      database.ref(newTeacherRoot).set({ name: userDisplayName })
+                        .then(() => {
+                          //signupUserSuccess(dispatch, user)
+                          // TEACHER TABLE UPDATED
+                        })
+                        .catch(teacherSaveError => {
+                          signupUserFail(dispatch, teacherSaveError.message);
+                        })
+                    }
+                    // End save if teacher ________________________
+
+                    // Send Activation Email
+                    currentUser.sendEmailVerification()
+                      .then(() => signupUserSuccess(dispatch, currentUser))
+                      .catch(activationMailSendingError => {
+                        // ERROR in sending activation email
+                        signupUserFail(dispatch, activationMailSendingError.message);
+                      })
+
+
                   },
-                  error => {
-                    // USER UPDATE ERROR
-                    signupUserFail(dispatch, error.message);
+                  userTableWritingError => {
+                    // EXTRA USER TABLE DATA WRITING ERROR
+                    signupUserFail(dispatch, userTableWritingError.message);
                   }
                 )
             })
-            .catch(error => {
-              // SEND EMAIL ERROR
-              signupUserFail(dispatch, error.message);
+            .catch(userUpdateError => {
+              // Error in user update
+              signupUserFail(dispatch, userUpdateError.message);
             })
         },
-        error => {
+        userCreateError => {
           // CREATE USER ERROR
-          signupUserFail(dispatch, error.message);
+          signupUserFail(dispatch, userCreateError.message);
         }
       )
   }

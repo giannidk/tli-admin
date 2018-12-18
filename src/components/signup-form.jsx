@@ -7,7 +7,7 @@ class SignupForm extends Component {
 
   render() {
     const { handleSubmit, handleChange, handleUserTypeChange } = this.props;
-    const { userEmail, userPassword, userDisplayName, isTeacher } = this.props.user;
+    const { userEmail, userPassword, userDisplayName, userIsTeacher } = this.props.user;
     
     
     return (
@@ -45,7 +45,7 @@ class SignupForm extends Component {
           name="isTeacher"
           id="isTeacher"
           type="checkbox"
-          value={isTeacher}
+          value={userIsTeacher}
           onChange={(e) => handleUserTypeChange(e)}
           component={renderCheckbox}
         />
