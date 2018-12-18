@@ -1,4 +1,4 @@
-import { database, auth, usersRoot } from '../../app/config';
+import { database, auth, usersRoot, teachersRoot } from '../../app/config'
 import {
   SIGNUP_USER,
   SIGNUP_USER_SUCCESS,
@@ -8,64 +8,72 @@ import {
   LOGIN_USER_FAIL,
   FETCH_USER,
   LOGOUT_USER,
-} from '../types';
+} from '../types'
 
 
-export const signupUser = (user) => {
-  const { userEmail, userPassword, isTeacher } = user
+export const signupUser = (user, callbackFunction) => {
+  const { userEmail, userPassword, userDisplayName, userIsTeacher } = user
   return (dispatch) => {
     dispatch({
       type: SIGNUP_USER,
     })
     auth.createUserWithEmailAndPassword(userEmail, userPassword)
-      .then(
-        success => {
-          // the user is created
-          const newUserRoot = `${usersRoot}/${success.user.uid}`
-          // insert user in users path
-          database.ref(newUserRoot)
-            .set({ isTeacher: isTeacher || false })
-            .then(
-              () => {
-                dispatch({
-                  type: SIGNUP_USER_SUCCESS,
-                  payload: success.user
-                })
-              },
-              error => {
-                dispatch({
-                  type: SIGNUP_USER_FAIL,
-                  error: error.message
-                });
-              }
-            )
-        },
-        error => {
-          dispatch({
-            type: SIGNUP_USER_FAIL,
-            error: error.message
-          });
-        }
+      .then(() => {
+        // THE USER IS CREATED
+        const { currentUser } = auth
+        currentUser.updateProfile({
+          displayName: userDisplayName,
+        })
+          .then(() => {
+            // USER UPDATED SUCCESSFULLY 
+            const newUserRoot = `${usersRoot}/${currentUser.uid}`
+            const newTeacherRoot = `${teachersRoot}/TEST/${currentUser.uid}`
+            database.ref(newUserRoot)
+              .set({ isTeacher: userIsTeacher || false })
+              .then(
+                () => {
+                  // USER SET IN USER TABLE 
+                  // Save if teacher ------------------------------------
+                  if (userIsTeacher) {
+                    database.ref(newTeacherRoot).set({ name: userDisplayName })
+                      .then(() => { return })
+                      .catch(teacherSaveError => signupUserFail(dispatch, teacherSaveError.message))
+                  }
+                  // End save if teacher ________________________
+
+                  // Send Activation Email
+                  currentUser.sendEmailVerification()
+                    .then(() => { return })
+                    .catch(activationMailSendingError => signupUserFail(dispatch, activationMailSendingError.message))
+                },
+                userTableWritingError => signupUserFail(dispatch, userTableWritingError.message)
+              )
+                signupUserSuccess(dispatch, currentUser)
+                callbackFunction()
+          })
+          .catch(userUpdateError => signupUserFail(dispatch, userUpdateError.message))
+      },
+        userCreateError => signupUserFail(dispatch, userCreateError.message)
       )
   }
 }
 
 export const loginUser = (email, password) => {
   return (dispatch) => {
-    dispatch({ type: LOGIN_USER });
+    dispatch({ type: LOGIN_USER })
     auth.signInWithEmailAndPassword(email, password)
       .then(
         success => {
           dispatch({
             type: LOGIN_USER_SUCCESS,
             payload: success.user
-          });
+          })
         },
         error => {
           dispatch({
             type: LOGIN_USER_FAIL,
             error: error.message
-          });
+          })
         }
       )
   }
@@ -80,24 +88,41 @@ export const fetchUser = () => {
             type: FETCH_USER,
             payload: user,
           }
-          );
-        }
-        else {
+        )
+      }
+      else {
         dispatch({
           type: FETCH_USER,
           payload: null,
-        });
+        })
       }
 
-    });
+    })
   }
 }
 
 export const logoutUser = () => {
   return (dispatch) => {
-    auth.signOut();
+    auth.signOut()
     dispatch({
       type: LOGOUT_USER
-    });
-  };
+    })
+  }
+}
+
+
+const signupUserSuccess = (dispatch, user) => {
+  dispatch({
+    type: SIGNUP_USER_SUCCESS,
+    payload: user
+  })
+};
+
+const signupUserFail = (dispatch, error) => {
+  //dispatch(reset('signupForm', 'userEmail'), { 
+  //dispatch(change('signupForm', 'userPassword', ''), { 
+  dispatch({
+    type: SIGNUP_USER_FAIL,
+    error: error
+  })
 };

@@ -7,20 +7,19 @@ class SignupForm extends Component {
 
   render() {
     const { handleSubmit, handleChange, handleUserTypeChange } = this.props;
-    const { userEmail, userPassword, isTeacher } = this.props.user;
+    const { userEmail, userPassword, userDisplayName, userIsTeacher } = this.props.user;
     
     
     return (
       <Panel>
         <Panel.Heading>SIGNUP</Panel.Heading>
         <Panel.Body>
-        <form onSubmit={handleSubmit(() => this.props.onRegisterUser(this.props.user))}>
+        <form onSubmit={handleSubmit(() => this.props.onRegisterUser(this.props.user))} autoComplete="nope">
         <Field
           label="Email"
           name="email"
           placeholder="email"
           value={userEmail}
-         // onChange={(e) => this.changeValue('email', e)}
           onChange={(e) => handleChange('userEmail', e)}
           component={renderField}
         />
@@ -30,8 +29,15 @@ class SignupForm extends Component {
           placeholder="password"
           type="password"
           value={userPassword}
-         // onChange={(e) => this.changeValue('password', e)}
           onChange={(e) => handleChange('userPassword', e)}
+          component={renderField}
+        />
+        <Field
+          label="Display name"
+          name="displayname"
+          placeholder="Display Name"
+          value={userDisplayName}
+          onChange={(e) => handleChange('userDisplayName', e)}
           component={renderField}
         />
         <Field
@@ -39,7 +45,7 @@ class SignupForm extends Component {
           name="isTeacher"
           id="isTeacher"
           type="checkbox"
-          value={isTeacher}
+          value={userIsTeacher}
           onChange={(e) => handleUserTypeChange(e)}
           component={renderCheckbox}
         />
@@ -58,13 +64,17 @@ class SignupForm extends Component {
 function validate(values) {
   const errors = {};
   // Validate inputs
-  if (!values.password) {
-    errors.password = "Password is required!";
-  }
+  
   if (!values.email) {
     errors.email = "Enter you email address!";
   } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
     errors.email = 'Invalid email address'
+  }
+  if (!values.password) {
+    errors.password = "Password is required!";
+  }
+  if (!values.displayname) {
+    errors.displayname = "Display name is required!";
   }
   // if errors is empty, the form is valid and can be submitted
   // if errors has any properties, the form is invalid
@@ -73,5 +83,5 @@ function validate(values) {
 
 export default reduxForm({
   validate,
-  form: 'signupForm'
+  form: 'signupForm',
 })(SignupForm);
