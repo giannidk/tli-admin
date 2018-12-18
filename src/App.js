@@ -3,7 +3,7 @@ import { BrowserRouter, Switch, Route } from "react-router-dom"
 import { withLocalize } from 'react-localize-redux'
 import { connect } from "react-redux"
 import { fetchUser } from "./store/actions"
-import { Grid } from 'react-bootstrap'
+import { Grid, Alert } from 'react-bootstrap'
 import { ToastContainer } from 'react-toastify'
 import './scss/app.scss'
 import './scss/spinner.scss'
@@ -53,7 +53,8 @@ class App extends Component {
         <BrowserRouter>
           <div className="app">
             <TopNav />
-            <Grid fluid={false}>
+            <Alert bsStyle="warning">You still need to activate your email. Didin't receive the activartion email? <strong>Send it again</strong></Alert>
+            <Grid fluid={false} className="page-container">
               <Switch>
                 <Route path="/signup" component={Signup} />
                 <Route path="/login" component={Login} />
