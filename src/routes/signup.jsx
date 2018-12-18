@@ -4,6 +4,7 @@ import SignupForm from '../components/signup-form'
 import { connect } from 'react-redux';
 import { signupUser } from '../store/actions';
 import { Spinner } from '../components/main/spinner'
+import SignupConfirm from './screens/signup-confirm'
 
 class Signup extends Component {
 
@@ -28,7 +29,7 @@ class Signup extends Component {
 
   handleUserRegistration(user) {
     this.props.signupUser(user, () => {
-      this.setState({userCreated: true})
+      this.setState({ newUserCreated: true })
     })
   }
 
@@ -38,17 +39,16 @@ class Signup extends Component {
     if (loading) {
       return <Spinner />
     }
-    if (this.state.userCreated && user) {
-      return <p>NEW USER: {user.displayName}, {user.email}</p>
-    }
     return (
       <div className="loginOuterContainer">
         <div className="loginInnerContainer col-xs-12 col-sm-8 col-md-6 col-lg-4">
           {user
-            ? <Redirect to={{
-              pathname: '/dashboard',
-              state: { from: this.props.location }
-            }} />
+            ? this.state.newUserCreated
+              ? <SignupConfirm newUser={user} />
+              : /* <Redirect to={{
+                pathname: '/dashboard',
+                state: { from: this.props.location }
+              }} /> */<SignupConfirm newUser={user} />
             : <SignupForm
               user={this.state.user}
               handleChange={(name, value) => this.handleChange(name, value)}
