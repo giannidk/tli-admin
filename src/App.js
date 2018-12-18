@@ -34,14 +34,14 @@ class App extends Component {
         { name: "Italian", code: "it" }
       ],
       translation: globalTranslations,
-      options: { 
+      options: {
         renderToStaticMarkup,
         renderInnerHtml: true,
         defaultLanguage: "en"
       }
     })
   }
-  
+
   componentDidMount() {
     this.props.fetchUser()
     const activeLanguage = localStorage.getItem('language')
@@ -50,27 +50,37 @@ class App extends Component {
 
   render() {
     return (
-        <BrowserRouter>
-          <div className="app">
-            <TopNav />
-            <Alert bsStyle="warning">You still need to activate your email. Didin't receive the activartion email? <strong>Send it again</strong></Alert>
-            <Grid fluid={false} className="page-container">
-              <Switch>
-                <Route path="/signup" component={Signup} />
-                <Route path="/login" component={Login} />
-                <Route path="/login-auth" component={LoginAuth} />
-                <Route path="/dashboard" component={requireAuth(Dashboard)} />
-                <Route path="/teachers/:key" component={TeacherDetails} />
-                <Route path="/teachers" component={Teachers} />
-                <Route path="/students" component={requireAuth(Students)} />
-                <Route path="/" component={Home} />
-              </Switch>
-            </Grid>
-            <ToastContainer />
-          </div>
-        </BrowserRouter>
+      <BrowserRouter>
+        <div className="app">
+          <TopNav />
+          {(this.props.user && !this.props.user.emailVerified) && <Alert
+            bsStyle="warning"
+          >
+            You still need to activate your email. Didin't receive the activartion email? <strong>Send it again</strong>
+          </Alert>}
+
+          <Grid fluid={false} className="page-container">
+            <Switch>
+              <Route path="/signup" component={Signup} />
+              <Route path="/login" component={Login} />
+              <Route path="/login-auth" component={LoginAuth} />
+              <Route path="/dashboard" component={requireAuth(Dashboard)} />
+              <Route path="/teachers/:key" component={TeacherDetails} />
+              <Route path="/teachers" component={Teachers} />
+              <Route path="/students" component={requireAuth(Students)} />
+              <Route path="/" component={Home} />
+            </Switch>
+          </Grid>
+          <ToastContainer />
+        </div>
+      </BrowserRouter>
     )
   }
 }
 
-export default withLocalize(connect(null, { fetchUser })(App))
+const mapStateToProps = ({ auth }) => {
+  const { user } = auth;
+  return { user };
+};
+
+export default withLocalize(connect(mapStateToProps, { fetchUser })(App))

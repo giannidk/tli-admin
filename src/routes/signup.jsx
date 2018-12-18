@@ -28,8 +28,8 @@ class Signup extends Component {
     this.setState((state) => ({ user: { ...state.user, userIsTeacher: e.target.checked } }))
   }
 
-  handleUserRegistration(user) {
-    this.setState({ loading: true }, this.props.signupUser(user, () => {
+  handleUserRegistration(newUser) {
+    this.setState({ loading: true }, this.props.signupUser(newUser, () => {
       this.setState({ newUserCreated: true, loading: false })
     }))
   }
@@ -57,7 +57,7 @@ class Signup extends Component {
               user={this.state.user}
               handleChange={(name, value) => this.handleChange(name, value)}
               handleUserTypeChange={(e) => this.handleChangeUserType(e)}
-              onRegisterUser={(user) => this.handleUserRegistration(user)}
+              onRegisterUser={(newUser) => this.handleUserRegistration(newUser)}
             />
           </div>
         }
