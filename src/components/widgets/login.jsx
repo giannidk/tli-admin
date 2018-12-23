@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Panel, ButtonGroup, Button, Glyphicon } from 'react-bootstrap';
+import { Panel, ButtonGroup, Button, Glyphicon, Alert } from 'react-bootstrap';
 import { Link } from 'react-router-dom';
 import { Field, reduxForm } from 'redux-form';
 import { renderField } from '../../utils/forms'
@@ -7,12 +7,13 @@ import { renderField } from '../../utils/forms'
 class LoginForm extends Component {
 
   render() {
-    const { handleSubmit, handleChange } = this.props;
+    const { handleSubmit, handleChange, loginError } = this.props;
     const { userEmail , userPassword } = this.props.user;
     
     return (
       <Panel>
         <Panel.Heading>Login</Panel.Heading>
+        {loginError && <Alert bsStyle="danger">{loginError}</Alert>}
         <Panel.Body>
           <form onSubmit={handleSubmit(() => this.props.onLoginUser())}>
             <Field

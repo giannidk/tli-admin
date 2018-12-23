@@ -20,7 +20,7 @@ class UserLogin extends Component {
   }
 
   render() {
-    const { loading, user } = this.props
+    const { loading, loginError, user } = this.props
     const { userEmail, userPassword } = this.state
     if (loading) {
       return <Spinner />
@@ -35,6 +35,7 @@ class UserLogin extends Component {
             }} />
             : <LoginForm
               user={this.state}
+              loginError={loginError}
               handleChange={(name, value) => this.handleChange(name, value)}
               onLoginUser={() => this.props.loginUser(userEmail, userPassword)}
             />
@@ -46,7 +47,7 @@ class UserLogin extends Component {
 }
 
 const mapStateToProps = ({ auth }) => {
-  const { error, loading, user } = auth
-  return { error, loading, user }
+  const { loginError, loading, user } = auth
+  return { loginError, loading, user }
 }
 export default connect(mapStateToProps, { loginUser })(UserLogin)
