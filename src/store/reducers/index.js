@@ -37,13 +37,4 @@ const rootReducer = combineReducers({
     form: formReducer
 })
 
-
-/* const rootReducer = combineReducers({
-  auth: persistReducer(authPersistConfig, authReducer),
-  other: otherReducer,
-}) */
-
 export default persistReducer(persistConfig, rootReducer)
-
-
-//export default rootReducer;
