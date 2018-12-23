@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { BrowserRouter, Switch, Route } from "react-router-dom"
 import { withLocalize } from 'react-localize-redux'
 import { connect } from "react-redux"
-import { fetchUser } from "./store/actions"
+import { fetchUser, logoutUser } from "./store/actions"
 import { Grid, Alert } from 'react-bootstrap'
 import { ToastContainer } from 'react-toastify'
 import './scss/app.scss'
@@ -52,7 +52,7 @@ class App extends Component {
     return (
       <BrowserRouter>
         <div className="app">
-          <TopNav />
+          <TopNav user={this.props.user} logoutUser={this.props.logoutUser} />
           {(this.props.user && !this.props.user.emailVerified) && <Alert
             bsStyle="warning"
           >
@@ -83,4 +83,4 @@ const mapStateToProps = ({ auth }) => {
   return { user };
 };
 
-export default withLocalize(connect(mapStateToProps, { fetchUser })(App))
+export default withLocalize(connect(mapStateToProps, { fetchUser, logoutUser })(App))
