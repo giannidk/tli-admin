@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import { Redirect } from 'react-router-dom'
 import SignupForm from '../components/signup-form'
 import { connect } from 'react-redux';
 import { signupUser } from '../store/actions';
