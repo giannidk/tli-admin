@@ -18,42 +18,45 @@ export const signupUser = (user, callbackFunction) => {
       type: SIGNUP_USER,
     })
     auth.createUserWithEmailAndPassword(userEmail, userPassword)
-      .then(() => {
-        // THE USER IS CREATED
-        const { currentUser } = auth
-        currentUser.updateProfile({
-          displayName: userDisplayName,
-        })
-          .then(() => {
-            // USER UPDATED SUCCESSFULLY 
-            const newUserRoot = `${usersRoot}/${currentUser.uid}`
-            const newTeacherRoot = `${teachersRoot}/TEST/${currentUser.uid}`
-            database.ref(newUserRoot)
-              .set({ isTeacher: userIsTeacher || false })
-              .then(
-                () => {
-                  // USER SET IN USER TABLE 
-                  // Save if teacher ------------------------------------
-                  if (userIsTeacher) {
-                    database.ref(newTeacherRoot).set({ name: userDisplayName })
-                      .then(() => { return })
-                      .catch(teacherSaveError => signupUserFail(dispatch, teacherSaveError.message))
-                  }
-                  // End save if teacher ________________________
-
-                  // Send Activation Email
-                  currentUser.sendEmailVerification()
-                    .then(() => { return })
-                    .catch(activationMailSendingError => signupUserFail(dispatch, activationMailSendingError.message))
-                },
-                userTableWritingError => signupUserFail(dispatch, userTableWritingError.message)
-              )
-                signupUserSuccess(dispatch, currentUser)
-                callbackFunction()
+      .then(
+        userCreateSuccess => {
+          // The user is created, now I will update the user data
+          const { currentUser } = auth
+          currentUser.updateProfile({
+            displayName: userDisplayName,
           })
-          .catch(userUpdateError => signupUserFail(dispatch, userUpdateError.message))
-      },
-        userCreateError => signupUserFail(dispatch, userCreateError.message)
+            .then(
+              userUpdateSuccess => {
+                // User update success, now I update data in other tables
+                const newUserRoot = `${usersRoot}/${currentUser.uid}`
+                const newTeacherRoot = `${teachersRoot}/TEST/${currentUser.uid}`
+                database.ref(newUserRoot)
+                  .set({ isTeacher: userIsTeacher || false })
+                  .then(
+                    tablesUpdateSuccess => {
+                      // Users table updated successfully, now I update the teachers table if needed, and I send the activation email
+                      // Save if teacher ------------------------------------
+                      if (userIsTeacher) {
+                        database.ref(newTeacherRoot).set({ name: userDisplayName })
+                          .then(() => { return })
+                          .catch(teacherSaveError => signupUserFail(dispatch, teacherSaveError.message, callbackFunction))
+                      }
+                      // End save if teacher ________________________
+
+                      // Now I send the activation email
+                      currentUser.sendEmailVerification()
+                        .then(
+                          verificationEmailSuccess => signupUserSuccess(dispatch, currentUser, callbackFunction),
+                          verificationEmailError => signupUserFail(dispatch, verificationEmailError.message, callbackFunction)
+                        )
+                    },
+                    tablesUpdateError => signupUserFail(dispatch, tablesUpdateError.message, callbackFunction)
+                  )
+              },
+              userUpdateError => signupUserFail(dispatch, userUpdateError.message, callbackFunction)
+            )
+        },
+        userCreateError => signupUserFail(dispatch, userCreateError.message, callbackFunction)
       )
   }
 }
@@ -111,18 +114,20 @@ export const logoutUser = () => {
 }
 
 
-const signupUserSuccess = (dispatch, user) => {
+const signupUserSuccess = (dispatch, user, callbackFunction) => {
   dispatch({
     type: SIGNUP_USER_SUCCESS,
     payload: user
   })
+  callbackFunction()
 };
 
-const signupUserFail = (dispatch, error) => {
+const signupUserFail = (dispatch, error, callbackFunction) => {
   //dispatch(reset('signupForm', 'userEmail'), { 
   //dispatch(change('signupForm', 'userPassword', ''), { 
   dispatch({
     type: SIGNUP_USER_FAIL,
     error: error
   })
+  callbackFunction()
 };
