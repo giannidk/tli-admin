@@ -34,7 +34,7 @@ class Signup extends Component {
   }
 
   render() {
-    const { loading, error, user } = this.props
+    const { loading, signupError, user } = this.props
 
     if (loading) {
       return <Spinner />
@@ -44,16 +44,10 @@ class Signup extends Component {
       <div className="loginOuterContainer">
 
         {user
-          ? this.state.newUserCreated
-            ? <SignupConfirm newUser={user} />
-            : <Redirect to={{
-                pathname: '/dashboard',
-                state: { from: this.props.location }
-              }} />
-              /* <SignupConfirm newUser={user} /> */
+          ? <SignupConfirm newUser={user} />
           : <div className="loginInnerContainer col-xs-12 col-sm-8 col-md-6 col-lg-4">
             <SignupForm
-              signupError={error}
+              signupError={signupError}
               user={this.state.user}
               handleChange={(name, value) => this.handleChange(name, value)}
               handleUserTypeChange={(e) => this.handleChangeUserType(e)}
@@ -67,8 +61,8 @@ class Signup extends Component {
 }
 
 const mapStateToProps = ({ auth }) => {
-  const { loading, error, user } = auth;
-  return { loading, error, user };
+  const { loading, signupError, user } = auth;
+  return { loading, signupError, user };
 };
 
 export default connect(mapStateToProps, { signupUser })(Signup)

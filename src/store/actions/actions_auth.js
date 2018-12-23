@@ -29,7 +29,7 @@ export const signupUser = (user, callbackFunction) => {
               userUpdateSuccess => {
                 // User update success, now I update data in other tables
                 const newUserRoot = `${usersRoot}/${currentUser.uid}`
-                const newTeacherRoot = `${teachersRoot}/TEST/${currentUser.uid}`
+                const newTeacherRoot = `${teachersRoot}/${currentUser.uid}`
                 database.ref(newUserRoot)
                   .set({ isTeacher: userIsTeacher || false })
                   .then(
