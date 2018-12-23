@@ -3,13 +3,13 @@ import { Row, Col, Panel } from 'react-bootstrap'
 
 
 const SignupConfirm = ({ newUser }) => {
-	console.log('USER: ', newUser)
 	return (
 		<Row>
 			<Col sm={12}>
 				<Panel>
 					<Panel.Body>
-						<h1>Welcome {newUser.displayName}</h1>
+						<h1>Welcome {newUser.displayName} </h1>
+						<h3>Your profile has been created successfully</h3>
 						<p>We sent an email with an activation code to <strong>{newUser.email}</strong>,
 						please click on the activation link in the email to access the full features set of XXXX.</p>
 

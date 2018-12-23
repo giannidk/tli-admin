@@ -1,18 +1,18 @@
 import React, { Component } from 'react';
-import { Panel, Button } from 'react-bootstrap';
+import { Panel, Button, Alert } from 'react-bootstrap';
 import { Field, reduxForm } from 'redux-form';
 import { renderField, renderCheckbox } from '../utils/forms'
 
 class SignupForm extends Component {
 
   render() {
-    const { handleSubmit, handleChange, handleUserTypeChange } = this.props;
-    const { userEmail, userPassword, userDisplayName, userIsTeacher } = this.props.user;
-    
-    
+    const { handleSubmit, handleChange, handleUserTypeChange, signupError } = this.props;
+    const { userEmail, userPassword, userDisplayName, userIsTeacher } = this.props.user
+
     return (
       <Panel>
         <Panel.Heading>SIGNUP</Panel.Heading>
+          {signupError && <Alert bsStyle="danger">{signupError}</Alert>}
         <Panel.Body>
         <form onSubmit={handleSubmit(() => this.props.onRegisterUser(this.props.user))} autoComplete="nope">
         <Field
