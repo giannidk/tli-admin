@@ -15,7 +15,6 @@ class Signup extends Component {
         userEmail: '',
         userPassword: '',
         userDisplayName: '',
-        loading: false,
       },
     }
   }
@@ -29,15 +28,15 @@ class Signup extends Component {
   }
 
   handleUserRegistration(newUser) {
-    this.setState({ loading: true }, this.props.signupUser(newUser, () => {
-      this.setState({ newUserCreated: true, loading: false })
-    }))
+    this.props.signupUser(newUser, () => {
+      this.setState({ newUserCreated: true })      
+    })
   }
 
   render() {
     const { loading, error, user } = this.props
 
-    if (this.state.loading) { // using state loading now, because store loading would send toast message too late after page reload
+    if (loading) {
       return <Spinner />
     }
    
@@ -47,11 +46,11 @@ class Signup extends Component {
         {user
           ? this.state.newUserCreated
             ? <SignupConfirm newUser={user} />
-            : /* <Redirect to={{
+            : <Redirect to={{
                 pathname: '/dashboard',
                 state: { from: this.props.location }
-              }} /> */
-              <SignupConfirm newUser={user} />
+              }} />
+              /* <SignupConfirm newUser={user} /> */
           : <div className="loginInnerContainer col-xs-12 col-sm-8 col-md-6 col-lg-4">
             <SignupForm
               signupError={error}

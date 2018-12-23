@@ -23,7 +23,7 @@ export default (state = INITIAL_STATE, action) => {
     case SIGNUP_USER:
       return { ...state, loading: true };
     case SIGNUP_USER_SUCCESS:
-      toast.success('Your profile has been created successfully');
+      //toast.success('Your profile has been created successfully');
       return { ...state, ...INITIAL_STATE, user: action.payload };
     case SIGNUP_USER_FAIL:
       //toast.error(action.error);
